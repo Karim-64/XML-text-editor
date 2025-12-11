@@ -1,4 +1,5 @@
-"""XML is a hierarchical data format, and the most natural way
+"""
+XML is a hierarchical data format, and the most natural way
 to represent it is with a tree. We made two classes for this purpose
 1. XTree represents the whole XML document as a tree
 2. XNode represents a single node in this tree. 
@@ -34,7 +35,8 @@ class XTree:
         return
     
     def write(self, filePath : str, tree : XTree) -> None:
-        """Creates new XML file from an XTree
+        """
+        Creates new XML file from an XTree
         
         Args:
             filePath(str): relative file path to write .xml file
