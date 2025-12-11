@@ -17,7 +17,7 @@ class XNode:
         self.children = []    
         self.parent = None 
 
-    def add_child(self, child):
+    def add_child(self, child : XNode):
         child.parent = self
         self.children.append(child)
 
@@ -25,28 +25,27 @@ class XTree:
     """
     Class that handles all operations on XML files as a custom Tree structure
     """
-    def __init__(self, root: XNode, file_path: str):
-        # self.parse_xml(file_path)
-        self.root = XNode
+    def __init__(self,file_path: str):
+        self.root: XNode = self.__parse(file_path)
     
     
-    def __parse(self, filePath : str) -> XTree | None:
+    def __parse(self, filePath : str) -> XNode:
         """Parses XML file into an XTree
         
         Args:
             filePath(str) : relative file path to .xml file
         Returns:
-            XTree : A custom Tree structure that represents XML File using XNodes.
+            XNode : A root node of the XTree.
             
         """
-        file = open(f"{file_path}", 'r')
+        file = open(f"{filePath}", 'r')
         xml_string = file.read()
 
         xml_string = xml_string.strip()
         i = 0
         n = len(xml_string)
         stack = []
-        root = None
+        root : XNode
 
         while i < n:
             if xml_string[i] == "<":
@@ -84,3 +83,10 @@ class XTree:
         """
         return
     
+def main():
+    tree = XTree("src/sample.xml")
+    for node in tree.root.children:
+        print(node.tag)
+ 
+if __name__ == "__main__":
+    main()
