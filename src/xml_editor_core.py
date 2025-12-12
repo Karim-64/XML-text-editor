@@ -50,35 +50,6 @@ class XMLEditor:
         # print(root.tag)
             
         return {root.tag : jsonDictionary}
-    
-    def formatJsonDict(self, jsonDictionary : dict):
-        """Prettifies JSON File
-        Args:
-            jsonDictionary : dict : The dictionary returned from convert() function
-        """
-        jsonStr = str(jsonDictionary)
-        res = ""
-        indentation = ""
-        # print(len(jsonStr))
-        for i,char in enumerate(jsonStr):
-            if char == '{' or char == '[':
-                indentation += "    "
-                res += char + '\n' + indentation
-                continue
-            if char == ',' and (jsonStr[i-1] == "'" or jsonStr[i-1] == "}"):
-                res += char + '\n' + indentation
-                continue
-            if char == '}' or char == ']':
-                if(len(indentation) >= 4):
-                    indentation = indentation[:-4]
-                else:
-                    indentation = ""
-                res += '\n' + indentation + char
-                continue 
-            res += char
-        # print(count)
-        return res
-        
         
     def minify(self):
         """Reduces physical size of XML file by deleting whitespaces and indentations"""
@@ -95,9 +66,7 @@ def main():
     root = tree.root
     jsonDict = editor.convert(root)
     prettyJsonDict = json.dumps(jsonDict, indent=4)
-    # print(jsonDict)
     print(prettyJsonDict)
-    # print(editor.formatJsonDict(jsonDict))
     
 if __name__ == "__main__":
     main()
