@@ -15,7 +15,8 @@ class XNode:
         self.tag = tag       
         self.text = text.strip() 
         self.children = []    
-        self.parent = None 
+        self.parent = None
+
 
     def add_child(self, child : XNode):
         child.parent = self
@@ -27,7 +28,7 @@ class XTree:
     """
     def __init__(self,file_path: str):
         self.root: XNode = self.__parse(file_path)
-    
+
     
     def __parse(self, filePath : str) -> XNode:
         """Parses XML file into an XTree
