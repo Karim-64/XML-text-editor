@@ -1,7 +1,8 @@
 import argparse
 from xml_editor_core import XMLEditor
 
-editor = XMLEditor
+editor = XMLEditor("file.txt")
+editor.verify()
 
 # def main():
 #     parser = argparse.ArgumentParser()

@@ -12,6 +12,7 @@ from xml_tree import XTree
 
 class XMLEditor:
     def __init__(self,filePath : str, xmlPastedFile = None) -> None:
+        self.filePath = filePath
         self.tree = XTree(filePath)
     
     def verify(self):
@@ -21,6 +22,11 @@ class XMLEditor:
         2-  Elements are properly nested.
         3-  There is a single root elements
         4-  Special characters are correctly escaped < for example
+
+        to do:
+        1-  Every Error should be kept and continue instead of break
+        2-  We must store the line where the error occured 
+        3-  We be able to fix it as well
         """
         with open(self.filePath, "r") as input_file:
             xml_content = input_file.read()
@@ -59,7 +65,6 @@ class XMLEditor:
             # Text handling
             else:
                 next_opening_bracket_index = xml_content.find("<", current_index)
-                
                 # Checking for illegal > in the text
                 while next_opening_bracket_index != -1:
                     if next_opening_bracket_index + 1 < total_length:
