@@ -1,4 +1,5 @@
-"""XML is a hierarchical data format, and the most natural way
+"""
+XML is a hierarchical data format, and the most natural way
 to represent it is with a tree. We made two classes for this purpose
 1. XTree represents the whole XML document as a tree
 2. XNode represents a single node in this tree. 
@@ -37,9 +38,8 @@ class XTree:
             XTree : A custom Tree structure that represents XML File using XNodes.
             
         """
-        file = open(f"{filePath}", 'r')
-        xml_string = file.read()
-
+        with open(filePath, 'r') as file:
+            xml_string = file.read()
         xml_string = xml_string.strip()
         i = 0
         n = len(xml_string)
@@ -49,6 +49,8 @@ class XTree:
         while i < n:
             if xml_string[i] == "<":
                 j = xml_string.find(">", i)
+                if j == -1:
+                    break
                 tag_content = xml_string[i + 1:j].strip()
 
                 if tag_content.startswith("/"):
@@ -64,6 +66,8 @@ class XTree:
                 i = j + 1
             else:
                 j = xml_string.find("<", i)
+                if j == -1:
+                    j = n
                 text_content = xml_string[i:j].strip()
                 if text_content and stack:
                     stack[-1].text += text_content
@@ -72,7 +76,8 @@ class XTree:
         
     
     def write(self, filePath : str, tree : XTree) -> None:
-        """Creates new XML file from an XTree
+        """
+        Creates new XML file from an XTree
         
         Args:
             filePath(str): relative file path to write .xml file
@@ -82,3 +87,20 @@ class XTree:
         """
         return
     
+xtree = XTree(None, "src/sample.xml")
+
+# print(xtree.root.children[0].tag)
+# print(xtree.root.children[0].children[0].tag) 
+# print(xtree.root.children[0].children[0].text)
+def print_tree(node: XNode, indent: int = 0) -> list[str]:
+    """Recursively returns lines representing the XML tree."""
+    lines = []
+    lines.append("    " * indent + f"<{node.tag}> {node.text}")
+    for child in node.children:
+        lines.extend(print_tree(child, indent + 1))
+    lines.append("    " * indent + f"</{node.tag}>")
+    return lines
+
+lines = print_tree(xtree.root)
+with open("printed_tree.xml", "w") as f:
+    f.write("\n".join(lines))
