@@ -13,7 +13,8 @@ from xml_tree import XTree
 
 class XMLEditor:
     def __init__(self,filePath : str, xmlPastedFile = None) -> None:
-        self.tree = XTree(filePath)
+        self.tree = XTree(None, filePath)
+        self.filePath = filePath          
     
     def verify(self):
         """Checks consistency and correctness of XML file"""
@@ -22,9 +23,10 @@ class XMLEditor:
     def correct(self):
         """Corrects errors in XML File"""
     
+    
     def format(self):
         """Formats/Prettifies XML by adjusting indentations"""
-        
+      
     def convert(self):
         """Converts XML file to JSON file"""
         
@@ -37,9 +39,6 @@ class XMLEditor:
     def decompress(self):
         """Decompresses XML File"""
 
-    
-        
-    
-    
-        
-    
+
+
+
