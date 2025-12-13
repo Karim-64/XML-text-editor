@@ -26,7 +26,7 @@ class XMLEditor:
     
     def format(self):
         """Formats/Prettifies XML by adjusting indentations"""
-
+      
     def convert(self):
         """Converts XML file to JSON file"""
         
@@ -41,5 +41,4 @@ class XMLEditor:
 
 
 
-editor = XMLEditor("unprettified.xml")
-editor.format()
+
