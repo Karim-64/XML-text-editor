@@ -27,7 +27,7 @@ class XTree:
     """
     def __init__(self, root: XNode | None, filePath: str):
             self.root = self.__parse(filePath)
-            
+
     def __parse(self, filePath : str) -> XNode | None:
         """Parses XML file into an XTree
         
