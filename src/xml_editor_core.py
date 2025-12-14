@@ -33,7 +33,7 @@ class XMLEditor:
     def format(self):
         """Formats/Prettifies XML by adjusting indentations"""
         
-    def convert(self, root : XNode, siblingFlag = False):
+    def convert(self, root : XNode | None, siblingFlag = False):
         """Converts XML file to JSON file"""
 
         if(not root):

@@ -25,7 +25,7 @@ class XTree:
     """
     Class that handles all operations on XML files as a custom Tree structure
     """
-    def __init__(self, root: XNode | None, filePath: str):
+    def __init__(self, filePath: str):
             self.root = self.__parse(filePath)
 
     def __parse(self, filePath : str) -> XNode | None:
