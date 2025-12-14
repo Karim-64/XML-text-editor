@@ -35,8 +35,7 @@ class XTree:
         Args:
             filePath(str) : relative file path to .xml file
         Returns:
-            XTree : A custom Tree structure that represents XML File using XNodes.
-            
+            XTree Root(XNode) : The root node of A custom Tree structure that represents XML File using XNodes.
         """
         with open(filePath, 'r') as file:
             xml_string = file.read()
@@ -75,34 +74,48 @@ class XTree:
         return root
         
     
-    def write(self, filePath : str, tree : XTree) -> None:
+    def write(self, filePathWrite : str, tree : XTree) -> None:
         """
-        Creates new XML file from an XTree
+        Creates new XML file from an XTree with limited formatting
         
         Args:
-            filePath(str): relative file path to write .xml file
+            filePathWrite(str): relative file path to write .xml file
             tree(XTree): An XTree object that will produce the .xml file
         Returns:
             None
         """
+        lines = self.print_tree(tree.root)
+        with open(filePathWrite, 'w') as f:
+            f.write('\n'.join(lines))
         return
     
-xtree = XTree("src/sample.xml")
-
-# print(xtree.root.children[0].tag)
-# print(xtree.root.children[0].children[0].tag) 
-# print(xtree.root.children[0].children[0].text)
-def print_tree(node: XNode | None, indent: int = 0) -> list[str]:
-    """Recursively returns lines representing the XML tree."""
-    if node is None:
-        raise TypeError
-    lines = []
-    lines.append("    " * indent + f"<{node.tag}> {node.text}")
-    for child in node.children:
-        lines.extend(print_tree(child, indent + 1))
-    lines.append("    " * indent + f"</{node.tag}>")
-    return lines
-
-lines = print_tree(xtree.root)
-with open("printed_tree.xml", "w") as f:
-    f.write("\n".join(lines))
+    def writePrettified(self, filePathWrite : str, formattedString: str) -> None:
+        """Creates new XML File from a prettified xml string
+        
+        Args:
+            filePathWrite(str): relative file path to write .xml file
+            formattedString(str): prettified xml string from editor.format() function
+        """
+        with open(filePathWrite, 'w') as f:
+            f.write(formattedString)
+        return
+    
+    def print_tree(self,node: XNode | None, indent: int = 0) -> list[str]:
+        """
+        Recursively returns lines representing the XML tree.
+        
+        Args:
+            node(XNode): Root node of an XTree
+            indent(int): Incremental indentation for recursive calls. Default is 0.
+                NOTE: Changing it to x would add x indentation to file.
+        Returns:
+            lines(list[str]) : A list of each line in XTree, formatted with indentation.
+        """
+        if node is None:
+            raise TypeError
+        lines = []
+        lines.append("    " * indent + f"<{node.tag}> {node.text}")
+        for child in node.children:
+            lines.extend(self.print_tree(child, indent + 1))
+        lines.append("    " * indent + f"</{node.tag}>")
+        return lines

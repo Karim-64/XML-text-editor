@@ -15,13 +15,14 @@ def main():
     #===================================================
     # TODO: Parse file path from CLI like command
     filePath : str = ""
-    editor : XMLEditor = XMLEditor(filePath)
+    editor : XMLEditor = XMLEditor(args.input)
     #===================================================
     
     if args.command == "verify":
         editor.verify()
     elif args.command == "format":
-        editor.format()
+        prettifiedOutput = editor.format()
+        editor.tree.writePrettified(args.output, prettifiedOutput)
     elif args.command == "json":
         editor.convert()
     elif args.command == "mini":

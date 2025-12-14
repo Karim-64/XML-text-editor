@@ -94,8 +94,11 @@ class XMLEditor:
         """Corrects errors in XML File"""
     
     
-    def format(self):
-        """Formats/Prettifies XML by adjusting indentations"""
+    def format(self) -> str:
+        """Formats/Prettifies XML by adjusting indentations
+        Returns:
+            output(str) : formatted and prettified xml string.
+        """
         with open(self.filePath, "r") as file:
             xml_str = file.read()
             indent = 0
@@ -137,8 +140,8 @@ class XMLEditor:
                             output += "   " * indent + text + "\n" 
                             flag=0
                     i = j
-        with open("formatted_output.xml", "w") as file:
-            file.write(output)
+        return output
+
     def convert(self, root : XNode):
         """Converts XML file to JSON file"""
 
@@ -167,8 +170,3 @@ class XMLEditor:
         
     def decompress(self):
         """Decompresses XML File"""
-
-
-
-editor = XMLEditor("unprettified.xml")
-editor.format()
