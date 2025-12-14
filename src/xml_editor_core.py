@@ -31,25 +31,29 @@ class XMLEditor:
     def format(self):
         """Formats/Prettifies XML by adjusting indentations"""
         
-    def convert(self, root : XNode):
+    def convert(self, root : XNode, siblingFlag = False):
         """Converts XML file to JSON file"""
 
         if(not root):
             return
         if(not root.children):
+            if(siblingFlag): 
+                return root.text
             return {root.tag : root.text}
         
         jsonDictionary = {}
-        for child in root.children:
+        for i,child in enumerate(root.children):       
             if child.tag in jsonDictionary:
                 if type(jsonDictionary[child.tag]) != list:
                     jsonDictionary[child.tag] = [jsonDictionary[child.tag]]
-                jsonDictionary[child.tag].append(self.convert(child))
+                (jsonDictionary[child.tag]).append((self.convert(child, True)))
             else:
-                jsonDictionary.update(self.convert(child))
-        # print(root.tag)
-            
-        return {root.tag : jsonDictionary}
+                jsonDictionary.update(self.convert(child, False)) # pyright: ignore[reportArgumentType, reportCallIssue]
+                
+        if(siblingFlag):
+            return jsonDictionary
+        else:
+            return {root.tag : jsonDictionary}
         
     def minify(self):
         """Reduces physical size of XML file by deleting whitespaces and indentations"""
@@ -64,7 +68,7 @@ def main():
     editor = XMLEditor("src/sample.xml")
     tree = editor.tree
     root = tree.root
-    jsonDict = editor.convert(root)
+    jsonDict = editor.convert(root, False)
     prettyJsonDict = json.dumps(jsonDict, indent=4)
     print(prettyJsonDict)
     

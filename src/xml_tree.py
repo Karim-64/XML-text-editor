@@ -69,7 +69,7 @@ class XTree:
                 if text_content and stack:
                     stack[-1].text += text_content
                 i = j
-        return root
+        return root # type: ignore
         
     
     def write(self, filePath : str, tree : XTree) -> None:
