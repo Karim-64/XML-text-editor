@@ -14,13 +14,14 @@ def main():
     
     #===================================================
     # Parses input file path from CLI
-    editor = XMLEditor(args.input)
+    editor : XMLEditor = XMLEditor(args.input)
     #===================================================
     
     if args.command == "verify":
         editor.verify()
     elif args.command == "format":
-        editor.format()
+        prettifiedOutput = editor.format()
+        editor.tree.writePrettified(args.output, prettifiedOutput)
     elif args.command == "json":
         jsonDictionary = editor.convert(editor.tree.root)
         editor.tree.writeToJson(args.output,jsonDictionary)
