@@ -18,6 +18,7 @@ from xml_tree import XNode, XTree
 class XMLEditor:
     def __init__(self,filePath : str, xmlPastedFile = None) -> None:
         self.tree = XTree(filePath)
+        self.filePath = filePath
     
     def verify(self):
         """

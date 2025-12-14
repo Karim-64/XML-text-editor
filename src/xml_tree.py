@@ -26,7 +26,7 @@ class XTree:
     """
     Class that handles all operations on XML files as a custom Tree structure
     """
-    def __init__(self, root: XNode | None, filePath: str):
+    def __init__(self,filePath: str):
             self.root = self.__parse(filePath)
 
     def __parse(self, filePath : str) -> XNode | None:
@@ -87,13 +87,15 @@ class XTree:
         """
         return
     
-xtree = XTree(None, "src/sample.xml")
+xtree = XTree("src/sample.xml")
 
 # print(xtree.root.children[0].tag)
 # print(xtree.root.children[0].children[0].tag) 
 # print(xtree.root.children[0].children[0].text)
-def print_tree(node: XNode, indent: int = 0) -> list[str]:
+def print_tree(node: XNode | None, indent: int = 0) -> list[str]:
     """Recursively returns lines representing the XML tree."""
+    if node is None:
+        raise TypeError
     lines = []
     lines.append("    " * indent + f"<{node.tag}> {node.text}")
     for child in node.children:
