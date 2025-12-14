@@ -20,6 +20,7 @@ class XMLEditor:
     def __init__(self,filePath : str, xmlPastedFile = None) -> None:
         self.tree = XTree(filePath)
         self.jsonDictionary = {}
+        self.filePath = filePath          
     
     def verify(self):
         """Checks consistency and correctness of XML file"""
@@ -27,6 +28,7 @@ class XMLEditor:
         
     def correct(self):
         """Corrects errors in XML File"""
+    
     
     def format(self):
         """Formats/Prettifies XML by adjusting indentations"""
