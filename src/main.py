@@ -13,8 +13,7 @@ def main():
     args = parser.parse_args()
     
     #===================================================
-    # TODO: Parse file path from CLI like command
-    filePath : str = ""
+    # Parses input file path from CLI
     editor : XMLEditor = XMLEditor(args.input)
     #===================================================
     
@@ -24,7 +23,8 @@ def main():
         prettifiedOutput = editor.format()
         editor.tree.writePrettified(args.output, prettifiedOutput)
     elif args.command == "json":
-        editor.convert()
+        jsonDictionary = editor.convert(editor.tree.root)
+        editor.tree.writeToJson(args.output,jsonDictionary)
     elif args.command == "mini":
         editor.minify()
     elif args.command == "compress":

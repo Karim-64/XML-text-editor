@@ -18,7 +18,8 @@ from xml_tree import XNode, XTree
 class XMLEditor:
     def __init__(self,filePath : str, xmlPastedFile = None) -> None:
         self.tree = XTree(filePath)
-        self.filePath = filePath
+        self.jsonDictionary = {}
+        self.filePath = filePath          
     
     def verify(self):
         """
@@ -93,7 +94,30 @@ class XMLEditor:
     def correct(self):
         """Corrects errors in XML File"""
     
-    
+    def convert(self, root : XNode | None, siblingFlag = False):
+        """Converts XML file to JSON file"""
+
+        if(not root):
+            raise TypeError
+        if(not root.children):
+            if(siblingFlag): 
+                return root.text
+            return {root.tag : root.text}
+        
+        jsonDictionary = {}
+        for i,child in enumerate(root.children):       
+            if child.tag in jsonDictionary:
+                if type(jsonDictionary[child.tag]) != list:
+                    jsonDictionary[child.tag] = [jsonDictionary[child.tag]]
+                (jsonDictionary[child.tag]).append((self.convert(child, True)))
+            else:
+                jsonDictionary.update(self.convert(child, False)) # pyright: ignore[reportArgumentType, reportCallIssue]
+                
+        if(siblingFlag):
+            return jsonDictionary
+        else:
+            return {root.tag : jsonDictionary}
+          
     def format(self) -> str:
         """Formats/Prettifies XML by adjusting indentations
         Returns:
@@ -141,27 +165,7 @@ class XMLEditor:
                             flag=0
                     i = j
         return output
-
-    def convert(self, root : XNode):
-        """Converts XML file to JSON file"""
-
-        if(not root):
-            return
-        if(not root.children):
-            return {root.tag : root.text}
-        
-        jsonDictionary = {}
-        for child in root.children:
-            if child.tag in jsonDictionary:
-                if type(jsonDictionary[child.tag]) != list:
-                    jsonDictionary[child.tag] = [jsonDictionary[child.tag]]
-                jsonDictionary[child.tag].append(self.convert(child))
-            else:
-                jsonDictionary.update(self.convert(child))
-        # print(root.tag)
-            
-        return {root.tag : jsonDictionary}
-        
+      
     def minify(self):
         """Reduces physical size of XML file by deleting whitespaces and indentations"""
         

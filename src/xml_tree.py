@@ -10,6 +10,7 @@ Interactions with a single XML element and its sub-element are
 done on the XNode level.
 """
 from __future__ import annotations
+import json
 
 class XNode:
     def __init__(self, tag, text=""):
@@ -71,7 +72,7 @@ class XTree:
                 if text_content and stack:
                     stack[-1].text += text_content
                 i = j
-        return root
+        return root # type: ignore
         
     
     def write(self, filePathWrite : str, tree : XTree) -> None:
@@ -100,6 +101,16 @@ class XTree:
             f.write(formattedString)
         return
     
+    def writeToJson(self, filePath : str, jsonDictionary) -> None:
+        """Creates new JSON File from a converted XML Tree
+        
+        Args:
+            filePath(str): file path to write .json file
+            jsonDictionary(dict) : dictionary returned from editor.convert() function
+        """
+        with open(filePath, "w") as f:
+            f.write(json.dumps(jsonDictionary, indent=4))
+            
     def print_tree(self,node: XNode | None, indent: int = 0) -> list[str]:
         """
         Recursively returns lines representing the XML tree.
