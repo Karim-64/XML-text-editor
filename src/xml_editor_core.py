@@ -37,7 +37,7 @@ class XMLEditor:
         """Converts XML file to JSON file"""
 
         if(not root):
-            return
+            raise TypeError
         if(not root.children):
             if(siblingFlag): 
                 return root.text

@@ -9,6 +9,7 @@ Interactions with a single XML element and its sub-element are
 done on the XNode level.
 """
 from __future__ import annotations
+import json
 
 class XNode:
     def __init__(self, tag, text=""):
@@ -82,3 +83,13 @@ class XTree:
         """
         return
     
+    def writeToJson(self, filePath : str, jsonDictionary) -> None:
+        """Creates new JSON File from a converted XML Tree
+        
+        Args:
+            filePath(str): file path to write .json file
+            jsonDictionary(dict) : dictionary returned from editor.convert() function
+        """
+        with open(filePath, "w") as f:
+            f.write(json.dumps(jsonDictionary, indent=4))
+            
