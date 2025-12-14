@@ -10,6 +10,7 @@ Interactions with a single XML element and its sub-element are
 done on the XNode level.
 """
 from __future__ import annotations
+import json
 
 class XNode:
     def __init__(self, tag, text=""):
@@ -26,7 +27,7 @@ class XTree:
     """
     Class that handles all operations on XML files as a custom Tree structure
     """
-    def __init__(self, root: XNode | None, filePath: str):
+    def __init__(self,filePath: str):
             self.root = self.__parse(filePath)
 
     def __parse(self, filePath : str) -> XNode | None:
@@ -35,8 +36,7 @@ class XTree:
         Args:
             filePath(str) : relative file path to .xml file
         Returns:
-            XTree : A custom Tree structure that represents XML File using XNodes.
-            
+            XTree Root(XNode) : The root node of A custom Tree structure that represents XML File using XNodes.
         """
         with open(filePath, 'r') as file:
             xml_string = file.read()
@@ -72,35 +72,61 @@ class XTree:
                 if text_content and stack:
                     stack[-1].text += text_content
                 i = j
-        return root
+        return root # type: ignore
         
     
-    def write(self, filePath : str, tree : XTree) -> None:
+    def write(self, filePathWrite : str, tree : XTree) -> None:
         """
-        Creates new XML file from an XTree
+        Creates new XML file from an XTree with limited formatting
         
         Args:
-            filePath(str): relative file path to write .xml file
+            filePathWrite(str): relative file path to write .xml file
             tree(XTree): An XTree object that will produce the .xml file
         Returns:
             None
         """
+        lines = self.print_tree(tree.root)
+        with open(filePathWrite, 'w') as f:
+            f.write('\n'.join(lines))
         return
     
-xtree = XTree(None, "src/sample.xml")
-
-# print(xtree.root.children[0].tag)
-# print(xtree.root.children[0].children[0].tag) 
-# print(xtree.root.children[0].children[0].text)
-def print_tree(node: XNode, indent: int = 0) -> list[str]:
-    """Recursively returns lines representing the XML tree."""
-    lines = []
-    lines.append("    " * indent + f"<{node.tag}> {node.text}")
-    for child in node.children:
-        lines.extend(print_tree(child, indent + 1))
-    lines.append("    " * indent + f"</{node.tag}>")
-    return lines
-
-lines = print_tree(xtree.root)
-with open("printed_tree.xml", "w") as f:
-    f.write("\n".join(lines))
+    def writePrettified(self, filePathWrite : str, formattedString: str) -> None:
+        """Creates new XML File from a prettified xml string
+        
+        Args:
+            filePathWrite(str): relative file path to write .xml file
+            formattedString(str): prettified xml string from editor.format() function
+        """
+        with open(filePathWrite, 'w') as f:
+            f.write(formattedString)
+        return
+    
+    def writeToJson(self, filePath : str, jsonDictionary) -> None:
+        """Creates new JSON File from a converted XML Tree
+        
+        Args:
+            filePath(str): file path to write .json file
+            jsonDictionary(dict) : dictionary returned from editor.convert() function
+        """
+        with open(filePath, "w") as f:
+            f.write(json.dumps(jsonDictionary, indent=4))
+            
+    def print_tree(self,node: XNode | None, indent: int = 0) -> list[str]:
+        """
+        Recursively returns lines representing the XML tree.
+        
+        Args:
+            node(XNode): Root node of an XTree
+            indent(int): Incremental indentation for recursive calls. Default is 0.
+                NOTE: Changing it to x would add x indentation to file.
+        Returns:
+            lines(list[str]) : A list of each line in XTree, formatted with indentation.
+        """
+        if node is None:
+            raise TypeError
+        lines = []
+        lines.append("    " * indent + f"<{node.tag}> {node.text}")
+        for child in node.children:
+            lines.extend(self.print_tree(child, indent + 1))
+        lines.append("    " * indent + f"</{node.tag}>")
+        return lines
