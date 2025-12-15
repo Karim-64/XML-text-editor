@@ -68,7 +68,7 @@ class XMLEditor:
                     for key in XMLEditor.textIdDict:
                         if XMLEditor.textIdDict[key] == temp.text:
                             temp.text = key
-                else:
+                elif decimal_value != 0x9FFF:
                     XMLEditor.textIdDict[chr(decimal_value)] = temp.text
                     temp.text = chr(decimal_value)
                     decimal_value +=1
@@ -121,7 +121,6 @@ class XMLEditor:
         items = list(XMLEditor.space_Enc.items())
         items.sort(key=lambda item: len(item[1]),
                    reverse=True)
-        print(items)
 
         for key, value in items:
             xml_str = xml_str.replace(key, value)
@@ -142,5 +141,6 @@ class XMLEditor:
 
 def main():
     pass
+
 if __name__ == "__main__":
     main()
