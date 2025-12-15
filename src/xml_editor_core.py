@@ -11,56 +11,136 @@
 """
 from xml_tree import XTree
 from xml_tree import XNode
+from pathlib import Path
 
 class XMLEditor:
 
     LUT = {}
+    textIdDict = {}
+    space_Enc = {}
 
     def __init__(self,filePath : str, xmlPastedFile = None) -> None:
         self.tree = XTree(filePath)
-    
+
     def verify(self):
         """Checks consistency and correctness of XML file"""
         print("Checking Verified")
-        
+
     def correct(self):
         """Corrects errors in XML File"""
-    
+
     def format(self):
         """Formats/Prettifies XML by adjusting indentations"""
-        
+
     def convert(self):
         """Converts XML file to JSON file"""
-        
+
     def minify(self):
         """Reduces physical size of XML file by deleting whitespaces and indentations"""
-        
-    def compress(self, tree : XNode):
+
+    @staticmethod
+    def compress(filePath : str):
         """Compresses XML File"""
-        compStack = []
-        compStack.append(tree)
-        while compStack:
-            temp = compStack.pop()
-            if temp.tag is not None and len(temp.tag) > 2:
-                if temp.tag in self.LUT.values():
-                    for key in self.LUT:
-                        if self.LUT[key] == temp.tag:
+        tree = XMLEditor(filePath).tree.root
+        # txtId = 1
+        char = '\u4E00'  # chinese letters start at 4E00 and end at 9FFF
+        decimal_value = ord(char)
+        stack = []
+        stack.append(tree)
+        while stack:
+            temp = stack.pop()
+            if temp.tag is not None:
+                if temp.tag in XMLEditor.LUT.values():
+                    for key in XMLEditor.LUT:
+                        if XMLEditor.LUT[key] == temp.tag:
                             temp.tag = key
-                elif temp.tag[0] not in self.LUT:
-                    self.LUT[temp.tag[0]] = temp.tag
+                elif temp.tag[0] not in XMLEditor.LUT:
+                    XMLEditor.LUT[temp.tag[0]] = temp.tag
                     temp.tag = temp.tag[0]
-                elif (temp.tag[0] + temp.tag[-1]) not in self.LUT:
-                    self.LUT[temp.tag[0] + temp.tag[-1]] = temp.tag
+                elif (temp.tag[0] + temp.tag[-1]) not in XMLEditor.LUT:
+                    XMLEditor.LUT[temp.tag[0] + temp.tag[-1]] = temp.tag
                     temp.tag = temp.tag[0] + temp.tag[-1]
                 else:
-                    self.LUT[temp.tag[0:1] + temp.tag[-1]] = temp.tag
+                    XMLEditor.LUT[temp.tag[0:1] + temp.tag[-1]] = temp.tag
                     temp.tag = temp.tag[0:1] + temp.tag[-1]
-                # print(temp.tag)
-            for child in temp.children:
-                compStack.append(child)
-        else:
-            return
+            if temp.text:
+                if temp.text in XMLEditor.textIdDict.values():
+                    for key in XMLEditor.textIdDict:
+                        if XMLEditor.textIdDict[key] == temp.text:
+                            temp.text = key
+                else:
+                    XMLEditor.textIdDict[chr(decimal_value)] = temp.text
+                    temp.text = chr(decimal_value)
+                    decimal_value +=1
 
-        
-    def decompress(self):
+            for child in temp.children:
+                stack.append(child)
+        else:
+            file = open(f"{filePath}", 'r')
+            xml_str = file.read()
+            i = 0
+            j = 0
+
+            for key, value in XMLEditor.textIdDict.items():
+                xml_str = xml_str.replace(value, key)
+
+            for key, value in XMLEditor.LUT.items():
+                xml_str = xml_str.replace(value, key)
+
+            n = len(xml_str)
+
+            while i < n and j < n:
+                while i < n and xml_str[i] != " ":
+                    i += 1
+                if i >= n:
+                    break
+                j = i
+                while j < n and xml_str[j] == " ":
+                    j += 1
+                # now i points to first space and j to first non-space character after it
+                XMLEditor.space_Enc[str(j - i) + '&'] = xml_str[i:j]
+                i = j
+
+            items = list(XMLEditor.space_Enc.items())
+            items.sort(key=lambda item: len(item[1]),
+                       reverse=True)  # lambda is used instead of defining a method, item[0]=key,item[1]=value,reverse->Descending order
+            for key, value in items:
+                xml_str = xml_str.replace(value, key)
+
+            Path.touch("output_file.comp")
+            P = Path("output_file.comp")
+            P.write_text(xml_str, encoding="utf-8")
+        return
+
+    @staticmethod
+    def decompress(filePath : str):
         """Decompresses XML File"""
+        xml_str = Path(filePath).read_text(encoding="utf-8")
+
+
+        items = list(XMLEditor.space_Enc.items())
+        items.sort(key=lambda item: len(item[1]),
+                   reverse=True)
+        print(items)
+
+        for key, value in items:
+            xml_str = xml_str.replace(key, value)
+
+        for key, value in XMLEditor.LUT.items():
+            xml_str = xml_str.replace('<' + key + '>', '<' + value + '>')
+            xml_str = xml_str.replace('</' + key + '>', '</' + value + '>')
+
+        for key, value in XMLEditor.textIdDict.items():
+            xml_str = xml_str.replace(key, value)
+
+        Path.touch("output_file.xml")
+        P = Path("output_file.xml")
+        P.write_text(xml_str, encoding="utf-8")
+
+        return
+
+
+def main():
+    pass
+if __name__ == "__main__":
+    main()
