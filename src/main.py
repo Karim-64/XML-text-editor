@@ -1,7 +1,7 @@
 import argparse
 from xml_editor_core import XMLEditor
 
-editor = XMLEditor("file.txt")
+editor = XMLEditor("file.xml")
 editor.verify()
 
 # def main():

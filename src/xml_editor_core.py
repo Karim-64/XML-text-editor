@@ -26,13 +26,15 @@ class XMLEditor:
         to do:
         1-  Every Error should be kept and continue instead of break
         2-  We must store the line where the error occured 
-        3-  We be able to fix it as well
+        3-  We should be able to fix it as well
         """
         with open(self.filePath, "r") as input_file:
             xml_content = input_file.read()
 
         xml_content = xml_content.strip()
         current_index = 0
+        current_line = 0    
+        is_leaf = False
         total_length = len(xml_content)
         tag_stack = []
 
@@ -43,6 +45,8 @@ class XMLEditor:
                 tag_internal_text = xml_content[current_index + 1 : closing_bracket_index].strip()
 
                 # Closing tags handling
+                # the same function should be called here 
+                # to differentiate between the mismatch and incorrect tag
                 if tag_internal_text.startswith("/"):
                     tag_name = tag_internal_text[1:]
                     if tag_stack:
@@ -62,31 +66,61 @@ class XMLEditor:
                 
                 current_index = closing_bracket_index + 1
 
-            # Text handling
+            # Second Text handling
             else:
                 next_opening_bracket_index = xml_content.find("<", current_index)
-                # Checking for illegal > in the text
+
+                # Validation of the text
                 while next_opening_bracket_index != -1:
-                    if next_opening_bracket_index + 1 < total_length:
-                        if not (
-                            xml_content[next_opening_bracket_index + 1].isalpha() 
-                            or xml_content[next_opening_bracket_index + 1] in ["/"]
-                        ):
-                            next_opening_bracket_index = xml_content.find("<", next_opening_bracket_index + 1)
-                        else:
-                            break
-                    else:
+                    next_char_index = next_opening_bracket_index + 1
+                    next_char = xml_content[next_char_index]
+
+                    # Valid tag start
+                    if next_char.isalpha() or next_char == '/':
                         break
 
+                    # Illegal '<'
+                    else:
+                        print("illegal '<' detected")
+                        next_opening_bracket_index = xml_content.find("<", next_char_index)
+
+                # Checking if the the tag is leaf or not  
+                for char in xml_content[current_index : next_opening_bracket_index]:
+                    if (char != '\n' and char != ' '):
+                        is_leaf = True
+                        break
+                    
+                # Handling leaf nodes closing terminals
+                if is_leaf:
+                    if xml_content[next_opening_bracket_index + 1] == '/':
+                        closing_bracket_index = xml_content.find(">", next_opening_bracket_index + 1) 
+                        tag_internal_text = xml_content[next_opening_bracket_index + 2 : closing_bracket_index]
+                        if(tag_stack):
+                            if(tag_internal_text != tag_stack[-1]):
+                                # Should check on the contents of the stack to check if the
+                                # current closing is a mismatch or wrong closing tag
+                                # implementing a function to travesre the stack
+                                # would make it better 
+                                print(tag_stack[-1])
+                                print(f"The closing of {tag_stack[-1]} is missing")
+                    else:
+                        print(f"The closing of {tag_stack[-1]} is missing")
+                    tag_stack.pop()
+                    is_leaf = False
+                    next_opening_bracket_index = xml_content.find("<", closing_bracket_index) 
+
+                    
+                # Breaking the loop if we reached the end of file
                 if next_opening_bracket_index == -1:
                     break
+
                 current_index = next_opening_bracket_index
 
-        # checking for tags without closing 
+        # Checking for tags without closing 
         if tag_stack:
             print("error")
 
-        print("Checking Verified")
+        print("Verification is finished")
             
 
     def correct(self):
