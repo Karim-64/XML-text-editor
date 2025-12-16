@@ -9,6 +9,30 @@
     7. Decompresses XML File
 """
 from xml_tree import XTree
+from collections import deque
+
+
+def find_tag_in_stack(stack, target_tag_name):
+    found = False
+    counter = 0
+    for i in range(len(stack) - 1, -1, -1):
+        if stack[i][0] == target_tag_name:
+            found = True
+            counter = len(stack) - 1 - i
+            break
+    return (found, counter)
+
+
+def log_error(errors, error_type, tag, line, message):
+    errors.append(
+        {
+            "type": error_type,
+            "tag": tag,
+            "line": line,
+            "message": message
+        }
+    )
+
 
 class XMLEditor:
     def __init__(self,filePath : str, xmlPastedFile = None) -> None:
@@ -31,10 +55,13 @@ class XMLEditor:
         with open(self.filePath, "r") as input_file:
             xml_content = input_file.read()
 
+        errors = []
+
         xml_content = xml_content.strip()
+        xml_queue = deque() # [NEW] Initialize Queue
         current_index = 0
-        current_line = 0    
-        is_leaf = False
+        current_line = 1    
+        is_leaf = False  
         total_length = len(xml_content)
         tag_stack = []
 
@@ -50,19 +77,55 @@ class XMLEditor:
                 if tag_internal_text.startswith("/"):
                     tag_name = tag_internal_text[1:]
                     if tag_stack:
-                        if tag_name != tag_stack[-1]:
-                            print(f"Error at {tag_stack[-1]}")
-                            break
+                        if tag_name == tag_stack[-1][0]: 
+                            xml_queue.append(f"</{tag_name}>")
+                            tag_stack.pop()
                         else:
+                            found, number_of_missing_closing_tags = find_tag_in_stack(tag_stack, tag_name)
+
+                            if found:
+                                # Missing closing tags above the correct one
+                                for _ in range(number_of_missing_closing_tags):
+                                    open_tag, open_line = tag_stack.pop()
+                                    log_error(
+                                        errors,
+                                        "MissingClosingTag",
+                                        open_tag,
+                                        open_line,
+                                        f"Missing closing tag for <{open_tag}>"
+                                    )
+                                    xml_queue.append(f"</{open_tag}>\n")
+                            else:
+                                # Truly incorrect closing tag
+                                log_error(
+                                    errors,
+                                    "IncorrectClosingTag",
+                                    tag_name,
+                                    current_line,
+                                    f"Incorrect closing tag </{tag_name}>"
+                                )
+                                # recover by closing the top element
+                                xml_queue.append(f"</{tag_stack[-1][0]}>\n")
+                                tag_stack.pop()
+                                current_index = closing_bracket_index + 1
+                                continue
+
+                            xml_queue.append(f"</{tag_name}>")
                             tag_stack.pop()
 
                 # Opening tags handling
                 else:
                     if current_index and not tag_stack:
-                        print("There can't be multiple roots")
+                        log_error(
+                            errors,
+                            "MultipleRoots",
+                            None,
+                            current_line,
+                            "Multiple root elements detected"
+                        )
                         break
-                    tag_stack.append(tag_internal_text)
-                    # print(tag_stack[-1])
+                    tag_stack.append((tag_internal_text, current_line))  
+                    xml_queue.append(f"<{tag_internal_text}>")
                 
                 current_index = closing_bracket_index + 1
 
@@ -78,51 +141,65 @@ class XMLEditor:
                     # Valid tag start
                     if next_char.isalpha() or next_char == '/':
                         break
-
-                    # Illegal '<'
                     else:
-                        print("illegal '<' detected")
+                        log_error(
+                            errors,
+                            "IllegalCharacter",
+                            None,
+                            current_line,
+                            "Illegal '<' character detected in text"
+                        )
                         next_opening_bracket_index = xml_content.find("<", next_char_index)
+                
+                xml_queue.append(xml_content[current_index : next_opening_bracket_index])
 
-                # Checking if the the tag is leaf or not  
                 for char in xml_content[current_index : next_opening_bracket_index]:
-                    if (char != '\n' and char != ' '):
+                    if char not in ('\n', ' '):
                         is_leaf = True
                         break
-                    
-                # Handling leaf nodes closing terminals
-                if is_leaf:
-                    if xml_content[next_opening_bracket_index + 1] == '/':
-                        closing_bracket_index = xml_content.find(">", next_opening_bracket_index + 1) 
-                        tag_internal_text = xml_content[next_opening_bracket_index + 2 : closing_bracket_index]
-                        if(tag_stack):
-                            if(tag_internal_text != tag_stack[-1]):
-                                # Should check on the contents of the stack to check if the
-                                # current closing is a mismatch or wrong closing tag
-                                # implementing a function to travesre the stack
-                                # would make it better 
-                                print(tag_stack[-1])
-                                print(f"The closing of {tag_stack[-1]} is missing")
-                    else:
-                        print(f"The closing of {tag_stack[-1]} is missing")
-                    tag_stack.pop()
-                    is_leaf = False
-                    next_opening_bracket_index = xml_content.find("<", closing_bracket_index) 
 
-                    
-                # Breaking the loop if we reached the end of file
-                if next_opening_bracket_index == -1:
-                    break
+                if is_leaf:
+                    if next_opening_bracket_index != -1 and xml_content[next_opening_bracket_index + 1] != '/':
+                        open_tag, open_line = tag_stack.pop()
+                        log_error(
+                            errors,
+                            "MissingClosingTag",
+                            open_tag,
+                            open_line,
+                            f"Missing closing tag for <{open_tag}>"
+                        )
+                        xml_queue.append(f"</{open_tag}>\n")
+                    is_leaf = False
+
+                if next_opening_bracket_index != -1:
+                    current_line += xml_content.count('\n', current_index, next_opening_bracket_index)
+                else:
+                    current_line += xml_content.count('\n', current_index, total_length)
 
                 current_index = next_opening_bracket_index
 
         # Checking for tags without closing 
-        if tag_stack:
-            print("error")
+        while tag_stack:
+            open_tag, open_line = tag_stack.pop()
+            log_error(
+                errors,
+                "MissingClosingTag",
+                open_tag,
+                open_line,
+                f"Missing closing tag for <{open_tag}> at end of file"
+            )
+            xml_queue.append(f"</{open_tag}>\n")
 
-        print("Verification is finished")
+        with open("output.xml", "w") as f:
+            while xml_queue:
+                f.write(xml_queue.popleft())
+
+        print("\nVerification Report:")
+        for err in errors:
+            print(f"[{err['type']}] Line {err['line']}: {err['message']}")
+
+        print(f"\nTotal errors found: {len(errors)}")
             
-
     def correct(self):
         """Corrects errors in XML File"""
     
