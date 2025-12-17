@@ -172,8 +172,8 @@ class XMLEditor:
 
 
 def main():
-    XMLEditor.compress("sample.xml")
-    XMLEditor.decompress("sample.comp")
+    # XMLEditor.compress("sample.xml")
+    # XMLEditor.decompress("sample.comp")
     pass
 
 if __name__ == "__main__":
