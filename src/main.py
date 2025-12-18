@@ -1,7 +1,6 @@
 import argparse
 from xml_editor_core import XMLEditor
 
-
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("command", help = "Choose a command", type=str
@@ -35,5 +34,5 @@ def main():
         raise ValueError("No such command exists")
     
 
-if __name__ == "__main__":
-    main()
+# if __name__ == "__main__":
+#     main()
