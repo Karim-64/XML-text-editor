@@ -1,8 +1,8 @@
 import argparse
 from xml_editor_core import XMLEditor
 
-editor = XMLEditor("file.xml")
-editor.verify()
+editor = XMLEditor("test.xml")
+editor.verify("output.xml")
 
 # def main():
 #     parser = argparse.ArgumentParser()
@@ -19,7 +19,6 @@ editor.verify()
 #     filePath : str = ""
 #     editor : XMLEditor = XMLEditor(filePath)
 #     #===================================================
-    
 #     if args.command == "verify":
 #         editor.verify()
 #     elif args.command == "format":
