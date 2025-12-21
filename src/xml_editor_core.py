@@ -315,8 +315,15 @@ class XMLEditor:
                     i = j
         return output
       
-    def minify(self):
+    def minify(self,root):
         """Reduces physical size of XML file by deleting whitespaces and indentations"""
+        minifer_output = f"<{root.tag}>"    # open tag 
+        minifer_output += root.text
+        for i in root.children:
+            minifer_output += self.minify(i)
+        minifer_output += f"</{root.tag}>"  # close tag
+
+        return minifer_output
         
     def compress(self):
         """Compresses XML File"""
