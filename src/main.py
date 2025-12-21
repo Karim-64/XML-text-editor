@@ -11,7 +11,8 @@ def main():
     parser.add_argument("-i", "--input", help="<file_name.xml>", type=str)
     parser.add_argument("-w", "--word", help="<word in posts>", type=str)
     parser.add_argument("-t", "--topic", help="<topic in posts>", type=str)
-    # parser.add_argument("-ids", "--ids", help="<file_name.xml>", type=str)
+    parser.add_argument("-id", "--id", help="Integer id of user for suggest", type=int)
+    parser.add_argument("-ids", "--ids", help="Integer ids of users for mutual", type=int, nargs='+')
     parser.add_argument("-f", "--fix", action="store_true")
     parser.add_argument("-o", "--output", help="<file_name.xml>", type=str)
     args = parser.parse_args()
@@ -35,44 +36,46 @@ def main():
         editor.compress()
     elif args.command == "decompress":
         editor.decompress()
+        
     elif args.command == "draw":
-        editor.graph.graph_draw()
+        editor.graph.graph_draw(args.output)
+        
     elif args.command == "most_active":
         user = editor.graph.most_active_user()
         if user:
-            print(user.name)
-            print(user.id)
+            print(f"Most active user\n=======\nName: {user.name}\nID: {user.id}")
+        else:
+            print("None found")
+            
     elif args.command == "most_influencer":
         user = editor.graph.most_influencer_user()
         if user:
-            print(user.id)
-            print(user.name)
+            print(f"Most influencer user\n=======\nName: {user.name}\nID: {user.id}")
+        else:
+            print("None found")
+            
     elif args.command == "mutual":
-        user1 = editor.graph.most_influencer_user()
-        user2 = editor.graph.most_active_user()
-        if user1 and user2:
-            user = editor.graph.mutual_followers([1,2])
-            if user:
-                print(user[0].id)
-                print(user[0].name)
-            else:
-                print("mfeesh")
+        users = editor.graph.mutual_followers(args.ids)
+        print(f"Mutual Users Between Users with IDs {args.ids}\n===========")
+        for i,user in enumerate(users):
+            print(f"{i+1} - Name: {user.name}, ID: {user.id}")
+        else:
+            print("No Mutual Users")
+            
     elif args.command == "suggest":
-        #TODO: parse id from cli
-        x = editor.graph.follow_suggestions(1)
-        print(x)
-    elif args.command == "search":
+        users = editor.graph.follow_suggestions(args.id)
+        print(f"Suggested Users: {[user.name for user in users]}")
+    
+    elif args.command == "search" and args.word:
         #TODO: print pretty post
-        x = editor.graph.search_by_body(args.word)
-        print([i.id for i in x][0])
-        print([i.body for i in x][0])
-        print([i.body for i in x][0])
-    elif args.command == "search":
+        searched_posts_by_word = editor.graph.search_by_body(args.word)
+        print([i for i in searched_posts_by_word])
+        
+    elif args.command == "search" and args.topic:
         #TODO: print pretty post
-        x = editor.graph.search_by_body(args.word)
-        print([i.id for i in x][0])
-        print([i.body for i in x][0])
-        print([i.body for i in x][0])
+        searched_posts_by_topic = editor.graph.search_by_topic(args.topic)
+        print(searched_posts_by_topic)
+        
     else:
         raise ValueError("No such command exists")
     

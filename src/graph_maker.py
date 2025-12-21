@@ -15,7 +15,7 @@ class GraphVisualization:
         self.visual.append(temp)
 
 
-    def visualize(self):
+    def visualize(self, output_file=None):
         G = nx.DiGraph()
         G.add_edges_from(self.visual)
         pos = nx.spring_layout(G) 
@@ -37,7 +37,12 @@ class GraphVisualization:
         
         plt.axis('off')
         plt.tight_layout()
-        plt.show()
+        
+        if output_file:
+            plt.savefig(output_file, format='jpg', dpi=300, bbox_inches='tight')
+            plt.close()
+        else:
+            plt.show()
 
 
 class User:
@@ -47,13 +52,17 @@ class User:
         self.followers = []
         self.degree = 0
         self.posts = []
+        
 
 class Post:
     def __init__(self, id = 0):
         self.body = ""
         self.topics = []
         self.user_id = id
-
+        
+    def __repr__(self) -> str:
+        return f"Post(user ID: {self.user_id}, Body: {self.body[:20]}..."
+    
 class GraphMaker:
     def __init__(self, root : XNode) -> None:
         self.adjMatrix = [[0] * 1000 for _ in range(1000)]
@@ -93,14 +102,15 @@ class GraphMaker:
                     self.users[user_id].posts = user_posts
 
 
-    def graph_draw(self):
+    def graph_draw(self, output_file : str):
         G = GraphVisualization()
         for i in range(len(self.adjMatrix)):
             for j in range(len(self.adjMatrix[i])):
                 if self.adjMatrix[i][j]:
                     G.addEdge(i,j)
 
-        G.visualize()
+        G.visualize(output_file)
+        
     def most_influencer_user(self):
         max_followers = -1
         most_influencer = None
@@ -122,7 +132,7 @@ class GraphMaker:
 
         return most_active
 
-    def mutual_followers(self, users: list[int]):
+    def mutual_followers(self, users: list[int]) -> list[User]:
         mutual=[]
         for i in range(len(self.adjMatrix)):
             flag = True
@@ -144,7 +154,7 @@ class GraphMaker:
 
         return suggestions
 
-    def search_by_body(self, word:str):
+    def search_by_body(self, word:str) -> list[Post]:
         searched_posts = []
         for post in self.posts:
             if str(post.body).find(word)!=-1:
