@@ -1,6 +1,6 @@
 <users>
     <user>
-        <id>1</id>
+        <id> 1 </id2>
         <name>Ahmed Ali</name>
         <posts>
             <post>
@@ -15,7 +15,7 @@
                         finance
                     </topic>
                 </topics>
-            </post>
+            
             <post>
                 <body>
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
@@ -29,7 +29,7 @@
         </posts>
         <followers>
             <follower>
-                <id>2</id>
+                <id>2</id2>
             </follower>
             <follower>
                 <id>3</id>
@@ -37,8 +37,8 @@
         </followers>
     </user>
     <user>
-        <id>2</id>
-        <name>Yasser Ahmed</name>
+        <id>2</id5>
+        <name>Yasser Ahmed
         <posts>
             <post>
                 <body>
@@ -59,7 +59,7 @@
     </user>
     <user>
         <id>3</id>
-        <name>Mohamed Sherif</name>
+        <name>Mohamed Sherif</name56>
         <posts>
             <post>
                 <body>
@@ -74,7 +74,7 @@
         </posts>
         <followers>
             <follower>
-                <id>1</id>
+                <id>1
             </follower>
         </followers>
     </user>

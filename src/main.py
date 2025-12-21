@@ -1,7 +1,6 @@
 import argparse
 from xml_editor_core import XMLEditor
 
-
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("command", help = "Choose a command", type=str
@@ -13,17 +12,18 @@ def main():
     args = parser.parse_args()
     
     #===================================================
-    # TODO: Parse file path from CLI like command
-    filePath : str = ""
-    editor : XMLEditor = XMLEditor(filePath)
+    # Parses input file path from CLI
+    editor : XMLEditor = XMLEditor(args.input)
     #===================================================
     
     if args.command == "verify":
         editor.verify()
     elif args.command == "format":
-        editor.format()
+        prettifiedOutput = editor.format()
+        editor.tree.writePrettified(args.output, prettifiedOutput)
     elif args.command == "json":
-        editor.convert()
+        jsonDictionary = editor.convert(editor.tree.root)
+        editor.tree.writeToJson(args.output,jsonDictionary)
     elif args.command == "mini":
         editor.minify()
     elif args.command == "compress":
@@ -34,5 +34,5 @@ def main():
         raise ValueError("No such command exists")
     
 
-if __name__ == "__main__":
-    main()
+# if __name__ == "__main__":
+#     main()
