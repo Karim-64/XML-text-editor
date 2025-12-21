@@ -23,6 +23,9 @@ class XNode:
         child.parent = self
         self.children.append(child)
 
+
+
+
 class XTree:
     """
     Class that handles all operations on XML files as a custom Tree structure
