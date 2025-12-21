@@ -7,7 +7,7 @@ def main():
                         ,choices = ["verify", "format", "json", "mini",
                                     "compress", "decompress", "most_active", 
                                     "most_influencer", "mutual", "suggest", 
-                                    "search"])
+                                    "search","draw"])
     parser.add_argument("-i", "--input", help="<file_name.xml>", type=str)
     parser.add_argument("-w", "--word", help="<word in posts>", type=str)
     parser.add_argument("-t", "--topic", help="<topic in posts>", type=str)
@@ -35,6 +35,8 @@ def main():
         editor.compress()
     elif args.command == "decompress":
         editor.decompress()
+    elif args.command == "draw":
+        editor.graph.graph_draw()
     elif args.command == "most_active":
         user = editor.graph.most_active_user()
         if user:

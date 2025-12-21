@@ -1,4 +1,26 @@
 from xml_tree import XNode
+import networkx as nx
+import matplotlib.pyplot as plt
+
+
+# Defining a Class
+class GraphVisualization:
+
+    def __init__(self):
+        self.visual = []
+
+
+    def addEdge(self, a, b):
+        temp = [a, b]
+        self.visual.append(temp)
+
+
+    def visualize(self):
+        G = nx.Graph()
+        G.add_edges_from(self.visual)
+        nx.draw_networkx(G)
+        plt.show()
+
 
 
 class User:
@@ -23,7 +45,7 @@ class GraphMaker:
         self.posts=[]
         self.root = root
         self.generate_graph()
-        
+
     def generate_graph(self):
         if self.root:
             children = self.root.children
@@ -54,6 +76,14 @@ class GraphMaker:
                     self.users[user_id].posts = user_posts
 
 
+    def graph_draw(self):
+        G = GraphVisualization()
+        for i in range(len(self.adjMatrix)):
+            for j in range(len(self.adjMatrix[i])):
+                if self.adjMatrix[i][j]:
+                    G.addEdge(i,j)
+
+        G.visualize()
     def most_influencer_user(self):
         max_followers = -1
         most_influencer = None
