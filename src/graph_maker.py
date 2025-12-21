@@ -16,11 +16,28 @@ class GraphVisualization:
 
 
     def visualize(self):
-        G = nx.Graph()
+        G = nx.DiGraph()
         G.add_edges_from(self.visual)
-        nx.draw_networkx(G)
+        pos = nx.spring_layout(G) 
+        
+        # Draw nodes
+        nx.draw_networkx_nodes(G, pos, node_size=600, node_color='lightblue')
+        nx.draw_networkx_labels(G, pos, font_size=12, font_weight='bold')
+        
+        nx.draw_networkx_edges(
+            G, pos,
+            connectionstyle='arc3,rad=0.1',
+            edge_color='black',
+            arrows=True,
+            arrowsize=20,
+            arrowstyle='-|>',
+            min_source_margin=12,
+            min_target_margin=12 
+        )
+        
+        plt.axis('off')
+        plt.tight_layout()
         plt.show()
-
 
 
 class User:

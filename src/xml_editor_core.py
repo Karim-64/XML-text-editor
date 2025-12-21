@@ -12,8 +12,6 @@
     6. Compresses XML File
     7. Decompresses XML File
 """
-import json
-from contextlib import nullcontext
 from typing import List
 
 from graph_maker import GraphMaker

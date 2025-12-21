@@ -25,7 +25,6 @@ class XNode:
 
 
 
-
 class XTree:
     """
     Class that handles all operations on XML files as a custom Tree structure
