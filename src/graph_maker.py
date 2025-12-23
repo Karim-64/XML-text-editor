@@ -157,7 +157,7 @@ class GraphMaker:
     def search_by_body(self, word:str) -> list[Post]:
         searched_posts = []
         for post in self.posts:
-            if str(post.body).find(word)!=-1:
+            if str(post.body).lower().find(word.lower())!=-1:
                 searched_posts.append(post)
 
         return searched_posts
@@ -166,7 +166,7 @@ class GraphMaker:
         searched_posts = []
         for post in self.posts:
             for topic in post.topics:
-                if str(topic).find(word) != -1:
+                if str(topic).lower().find(word.lower()) != -1:
                     searched_posts.append(post)
                     break
 
