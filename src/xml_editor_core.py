@@ -39,6 +39,29 @@ class XMLEditor:
 
     def minify(self):
         """Reduces physical size of XML file by deleting whitespaces and indentations"""
+    @staticmethod
+    def decompress(filePath : str):
+        """Decompresses XML File"""
+        xml_str = Path(filePath).read_text(encoding="utf-8")
+
+        # load dictionaries used in compression
+        with open(XMLEditor.FILE, "r", encoding="utf-8") as f:
+            data = json.load(f)
+            XMLEditor.LUT = data["LUT"]
+            XMLEditor.textIdDict = data["textIdDict"]
+            XMLEditor.space_Enc = data["space_Enc"]
+
+        for key, value in XMLEditor.space_Enc.items():
+            xml_str = xml_str.replace(key, value)
+
+        for key, value in XMLEditor.LUT.items():
+            xml_str = xml_str.replace('<' + key + '>', '<' + value + '>')
+            xml_str = xml_str.replace('</' + key + '>', '</' + value + '>')
+
+        for key, value in XMLEditor.textIdDict.items():
+            xml_str = xml_str.replace(key, value)
+        
+        return xml_str
 
     @staticmethod
     def compress(filePath : str):
@@ -115,9 +138,6 @@ class XMLEditor:
             for key, value in XMLEditor.space_Enc.items():
                 xml_str = xml_str.replace(value, key)
 
-            p = Path(filePath).with_suffix(".comp")
-            p.write_text(xml_str, encoding="utf-8")
-
             # COMPRESSION - DECOMPRESSION DICTIONARIES FILE
             # load old data if file exists / make a new file
             if Path(XMLEditor.FILE).exists():
@@ -141,34 +161,8 @@ class XMLEditor:
             # write back with merged dictionaries
             with open(XMLEditor.FILE, "w", encoding="utf-8") as f:
                 json.dump(data, f, ensure_ascii=False, indent=2)
-        return
-
-    @staticmethod
-    def decompress(filePath : str):
-        """Decompresses XML File"""
-        xml_str = Path(filePath).read_text(encoding="utf-8")
-
-        # load dictionaries used in compression
-        with open(XMLEditor.FILE, "r", encoding="utf-8") as f:
-            data = json.load(f)
-            XMLEditor.LUT = data["LUT"]
-            XMLEditor.textIdDict = data["textIdDict"]
-            XMLEditor.space_Enc = data["space_Enc"]
-
-        for key, value in XMLEditor.space_Enc.items():
-            xml_str = xml_str.replace(key, value)
-
-        for key, value in XMLEditor.LUT.items():
-            xml_str = xml_str.replace('<' + key + '>', '<' + value + '>')
-            xml_str = xml_str.replace('</' + key + '>', '</' + value + '>')
-
-        for key, value in XMLEditor.textIdDict.items():
-            xml_str = xml_str.replace(key, value)
-
-        p = Path(filePath)
-        p = p.with_name(f"{p.stem}_DECOMP").with_suffix(".xml")
-        p.write_text(xml_str, encoding="utf-8")
-        return
+                
+        return xml_str
 
 
 def main():
