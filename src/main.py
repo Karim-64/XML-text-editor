@@ -17,17 +17,23 @@ def main():
     #===================================================
     
     if args.command == "verify":
-        editor.verify()
+        xml_queue = editor.verify()
+        editor.tree.writeVerified(args.output,xml_queue)
+
     elif args.command == "format":
         prettifiedOutput = editor.format()
         editor.tree.writePrettified(args.output, prettifiedOutput)
+        
     elif args.command == "json":
         jsonDictionary = editor.convert(editor.tree.root)
         editor.tree.writeToJson(args.output,jsonDictionary)
+        
     elif args.command == "mini":
         editor.minify()
+        
     elif args.command == "compress":
         editor.compress()
+        
     elif args.command == "decompress":
         editor.decompress()
     else:

@@ -16,39 +16,6 @@ import json
 from xml_tree import XNode, XTree
 from collections import deque
 
-def find_tag_in_stack(stack, target_tag_name):
-    temp_stack = []
-    found = False
-    counter = -1
-
-    while (not found and stack):
-        temp = stack.pop()
-        temp_stack.append(temp)
-        counter = counter + 1
-
-        if(temp[0] == target_tag_name):
-            found = True
-
-    while temp_stack:
-        stack.append(temp_stack.pop())
-
-    return (found, counter)
-
-
-def log_error(errors, error_type, tag, line, message):
-    # Recording the errors in a list of dicts
-    # while each dict contains a single error
-    errors.append(
-        {
-            "type": error_type,
-            "tag": tag,
-            "line": line,
-            "message": message
-        }
-    )
-
-
-
 class XMLEditor:
     def __init__(self,filePath : str, xmlPastedFile = None) -> None:
         self.filePath = filePath
@@ -56,7 +23,7 @@ class XMLEditor:
         self.jsonDictionary = {}
         self.filePath = filePath          
     
-    def verify(self, output_file : str = None):
+    def verify(self, output_file : str | None = None):
         """
         Checks consistency and Correcting of XML file
         1-  Every opening tag has a matching closing tag.
@@ -68,7 +35,7 @@ class XMLEditor:
             xml_content = input_file.read()
 
         xml_content = xml_content.strip()
-        xml_queue = deque() 
+        xml_queue : deque = deque() 
         errors = []
         current_index = 0
         current_line = 1    
@@ -225,16 +192,7 @@ class XMLEditor:
 
         print(f"\nTotal errors found: {len(errors)}")
 
-        # Write the output into a file
-        if output_file:
-            with open(output_file, "w") as f:
-                i = 0
-                queue_list = list(xml_queue)
-                
-                while i < len(xml_queue):
-                    item = queue_list[i]
-                    f.write(item + '\n')
-                    i += 1
+        return xml_queue
             
     def correct(self):
         """Corrects errors in XML File"""
@@ -319,3 +277,37 @@ class XMLEditor:
         
     def decompress(self):
         """Decompresses XML File"""
+
+
+#Helper Functions for XMLEditor verify()
+
+def find_tag_in_stack(stack, target_tag_name):
+    temp_stack = []
+    found = False
+    counter = -1
+
+    while (not found and stack):
+        temp = stack.pop()
+        temp_stack.append(temp)
+        counter = counter + 1
+
+        if(temp[0] == target_tag_name):
+            found = True
+
+    while temp_stack:
+        stack.append(temp_stack.pop())
+
+    return (found, counter)
+
+
+def log_error(errors, error_type, tag, line, message):
+    # Recording the errors in a list of dicts
+    # while each dict contains a single error
+    errors.append(
+        {
+            "type": error_type,
+            "tag": tag,
+            "line": line,
+            "message": message
+        }
+    )

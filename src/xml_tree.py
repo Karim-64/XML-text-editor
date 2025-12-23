@@ -10,6 +10,7 @@ Interactions with a single XML element and its sub-element are
 done on the XNode level.
 """
 from __future__ import annotations
+from collections import deque
 import json
 
 class XNode:
@@ -86,9 +87,27 @@ class XTree:
             None
         """
         lines = self.print_tree(tree.root)
-        with open(filePathWrite, 'w') as f:
-            f.write('\n'.join(lines))
-        return
+        if filePathWrite:
+            with open(filePathWrite, 'w') as f:
+                f.write('\n'.join(lines))
+            return
+    
+    def writeVerified(self, filePathWrite : str, xml_queue : deque)->None:
+        """Creates new  XML file after correction with editor.verify
+        
+        Args:
+            filePathWrite(str): relative file path to write .xml file
+            xml_queue(deque): Corrected xml in deque outputted from editor.verify()
+        """
+        if filePathWrite:
+            with open(filePathWrite, "w") as f:
+                i = 0
+                queue_list = list(xml_queue)
+                
+                while i < len(xml_queue):
+                    item = queue_list[i]
+                    f.write(item + '\n')
+                    i += 1
     
     def writePrettified(self, filePathWrite : str, formattedString: str) -> None:
         """Creates new XML File from a prettified xml string
