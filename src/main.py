@@ -1,6 +1,10 @@
 import argparse
 from xml_editor_core import XMLEditor
 
+#==========
+#TODO:
+# rename writePrettified to writeFromString
+#==========
 
 def main():
     parser = argparse.ArgumentParser()
@@ -27,13 +31,17 @@ def main():
         editor.tree.writeToJson(args.output,jsonDictionary)
     elif args.command == "mini":
         editor.minify()
+        
     elif args.command == "compress":
-        editor.compress()
+        compressed_xml = XMLEditor.compress(args.input)
+        editor.tree.writePrettified(args.output, compressed_xml)
+        
     elif args.command == "decompress":
-        editor.decompress()
+        decompressed_xml = XMLEditor.decompress(args.input)
+        editor.tree.writePrettified(args.output, decompressed_xml)
     else:
         raise ValueError("No such command exists")
-    
+
 
 if __name__ == "__main__":
     main()

@@ -39,7 +39,7 @@ class XTree:
         Returns:
             XTree Root(XNode) : The root node of A custom Tree structure that represents XML File using XNodes.
         """
-        with open(filePath, 'r') as file:
+        with open(filePath, 'r', encoding="utf-8") as file:
             xml_string = file.read()
         xml_string = xml_string.strip()
         i = 0
@@ -98,7 +98,7 @@ class XTree:
             filePathWrite(str): relative file path to write .xml file
             formattedString(str): prettified xml string from editor.format() function
         """
-        with open(filePathWrite, 'w') as f:
+        with open(filePathWrite, 'w', encoding="utf-8") as f:
             f.write(formattedString)
         return
     
