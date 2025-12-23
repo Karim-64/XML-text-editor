@@ -9,8 +9,9 @@
     
     
 """
-from xml_tree import XTree
-from xml_tree import XNode
+from typing import List
+
+from graph_maker import GraphMaker
 from pathlib import Path
 import json
 from xml_tree import XNode, XTree
@@ -60,9 +61,11 @@ class XMLEditor:
         self.filePath = filePath
         self.tree = XTree(filePath)
         self.jsonDictionary = {}
-        self.filePath = filePath          
-    
-    def verify(self, output_file : str = None):
+        self.filePath = filePath
+        if self.tree.root:
+            self.graph = GraphMaker(self.tree.root)
+
+    def verify(self, output_file : str | None = None):
         """
         Checks consistency and Correcting of XML file
         1-  Every opening tag has a matching closing tag.
