@@ -43,5 +43,5 @@ def main():
         raise ValueError("No such command exists")
 
 
-if __name__ == "__main__":
-    main()
+# if __name__ == "__main__":
+#     main()
