@@ -35,10 +35,9 @@ def main():
     elif args.command == "json":
         jsonDictionary = editor.convert(editor.tree.root)
         editor.tree.writeToJson(args.output,jsonDictionary)
-        
     elif args.command == "mini":
-        editor.minify()
-        
+        minified_string = editor.minify(editor.tree.root)
+        editor.tree.writePrettified(args.output, minified_string)
     elif args.command == "compress":
         compressed_xml = XMLEditor.compress(args.input)
         editor.tree.writePrettified(args.output, compressed_xml)
