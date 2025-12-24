@@ -64,7 +64,7 @@ class AppWindow(QMainWindow):
             # Verify without fixing (no output file)
             self.correctFlag = True
             xml_queue = self.editor.verify()
-
+            self.validate()
             # Initialize result first
             result = "The XML file is valid and consistent.\n\n"
 
@@ -74,6 +74,7 @@ class AppWindow(QMainWindow):
 
             # Display in text box
             self.ui.textEdit_2.setPlainText(result)
+            self.ui.inputText.setPlainText(self.current_xml_content)
 
         except Exception as e:
             error_msg = f" XML Consistency Check Failed!\n\n{str(e)}"
@@ -248,7 +249,7 @@ class AppWindow(QMainWindow):
                 cursor.select(QTextCursor.LineUnderCursor)
                 cursor.mergeCharFormat(error_format)
     
-    def _proceed_to_main_page(self):
+    def validate(self):
         """Process XML and switch to the main page"""
         xml_queue = self.editor.verify()
         
@@ -269,9 +270,12 @@ class AppWindow(QMainWindow):
         self.current_file_path = temp_file
         self.editor = XMLEditor(temp_file)
         
+    def _proceed_to_main_page_fromImport(self):
+        
         self.ui.stackedWidget.setCurrentIndex(1)
         self.ui.inputText.setPlainText(self.current_xml_content)
         self.ui.textEdit_2.setPlainText("XML imported successfully from file!\n\nReady to use processing functions.")
+    
     
     def clear_inputs(self):
         self.ui.filePathInput.clear()
@@ -288,6 +292,7 @@ class AppWindow(QMainWindow):
             "",
             "XML Files (*.xml);;All Files (*)"
         )
+        self.correctFlag = False
         if file_path:
             self.ui.filePathInput.setText(file_path)
             try:
@@ -324,14 +329,12 @@ class AppWindow(QMainWindow):
                     error_text += f"\nTotal errors found: {len(errors)}"
                     
                     QMessageBox.warning(self, "Errors Found", error_text)
-                    QMessageBox.information(self, "Correcting", "Correcting errors...")
                     
                     # Delay switching to next page so user can see highlights
-                    QTimer.singleShot(1000, self._proceed_to_main_page)  # 2 second delay
+                    QTimer.singleShot(2000, self._proceed_to_main_page_fromImport)  # 2 second delay
                     return
                 #=================
                 
-                self._proceed_to_main_page()
 
             except Exception as e:
                 QMessageBox.critical(self, "Error", f"Error importing XML: {e}")
@@ -488,22 +491,30 @@ class AppWindow(QMainWindow):
 
 
     def save_results(self):
-        """Save current results to a file"""
         try:
-            file_path, _ = QFileDialog.getSaveFileName(
+            file_path, selected_filter = QFileDialog.getSaveFileName(
                 self,
                 "Save Results",
-                "results.txt",
-                "Text Files (*.txt);;All Files (*)"
+                "results",
+                "Text File (*.txt);;XML File (*.xml);;Compressed File (*.comp);;All Files (*)"
             )
-            
+
             if file_path:
+                if '.' not in Path(file_path).name:
+                    if "Text File" in selected_filter:
+                        file_path += ".txt"
+                    elif "XML File" in selected_filter:
+                        file_path += ".xml"
+                    elif "Compressed File" in selected_filter:
+                        file_path += ".comp"
+
                 with open(file_path, 'w', encoding='utf-8') as f:
                     f.write(self.ui.textEdit_2.toPlainText())
-                QMessageBox.information(self, "Success", f"Results saved to {file_path}")
+
+                QMessageBox.information(self, "Success", f"Results saved to:\n{file_path}")
+
         except Exception as e:
             QMessageBox.critical(self, "Error", f"Save error: {e}")
-
     def go_back_to_import(self):
         """Go back to import page"""
         self.ui.stackedWidget.setCurrentIndex(0)
