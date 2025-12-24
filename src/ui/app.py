@@ -106,7 +106,7 @@ class AppWindow(QMainWindow):
         try:
             user = self.editor.graph.most_active_user()
             if user and user.id != 0:
-                result = f"Most Active User:\nID: {user.id}\nName: {user.name}\nPosts: {(user.degree)}"
+                result = f"Most Active User:\nID: {user.id}\nName: {user.name}\n"
                 self.ui.textEdit_2.setPlainText(result)
             else:
                 self.ui.textEdit_2.setPlainText("No active users found.")
