@@ -32,7 +32,7 @@ class XMLEditor:
         if self.tree.root:
             self.graph = GraphMaker(self.tree.root)
 
-    def verify(self, output_file : str | None = None):
+    def verify(self, output_file : str | None = None, logFlag : bool = False):
         """
         Checks consistency and Correcting of XML file
         1-  Every opening tag has a matching closing tag.
@@ -200,6 +200,9 @@ class XMLEditor:
             print(f"[{err['type']}] Line {err['line']}: {err['message']}")
 
         print(f"\nTotal errors found: {len(errors)}")
+        
+        if(logFlag):
+            return errors
 
         return xml_queue
             

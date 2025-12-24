@@ -1,0 +1,53 @@
+{
+  "LUT": {
+    "u": "users",
+    "n": "name",
+    "k": "karim",
+    "b": "body",
+    "m": "marina",
+    "<": "</marina",
+    "uu": "u",
+    "ur": "user",
+    "f": "followers",
+    "fr": "follower",
+    "i": "id",
+    "p": "posts",
+    "pt": "post",
+    "t": "topics",
+    "tc": "topic",
+    "bb": "b",
+    "nn": "n",
+    "kk": "k",
+    "mm": "m"
+  },
+  "textIdDict": {
+    "一": "2",
+    "丁": "sports",
+    "丂": "Lorem ipsum dolor sit amet, consectetur hello adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+    "七": "Mohamed Sherif",
+    "丄": "3",
+    "丅": "1",
+    "丆": "education",
+    "万": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+    "丈": "Yasser Ahmed",
+    "三": "solar_energy",
+    "上": "finance",
+    "下": "economy",
+    "丌": "Lorem ipsum dolor sit amet, hello consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+    "不": "Ahmed Ali",
+    "与": "Yasser Ahmed",
+    "丏": "Ahmed Ali",
+    "丐": "20&20&16&",
+    "丑": "24&三\n20&",
+    "丒": "24&上\n20&",
+    "专": "下"
+  },
+  "space_Enc": {
+    "16&": "                ",
+    "12&": "            ",
+    "8&": "        ",
+    "4&": "    ",
+    "24&": "                        ",
+    "20&": "                    "
+  }
+}

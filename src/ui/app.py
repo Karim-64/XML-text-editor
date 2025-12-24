@@ -1,11 +1,15 @@
 import sys
-from pathlib import Path
-from PySide6.QtWidgets import QApplication, QMainWindow, QFileDialog, QMessageBox
-from PySide6.QtCore import QFile, QTextStream
-from ui.mainwindow import Ui_MainWindow
-sys.path.append(str(Path(__file__).resolve().parent.parent))
-from xml_editor_core import XMLEditor
 import json
+from pathlib import Path
+
+# Add src directory to path for imports
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
+
+from PySide6.QtWidgets import QApplication, QMainWindow, QFileDialog, QMessageBox
+from PySide6.QtCore import QFile, QTextStream, QTimer
+from PySide6.QtGui import QTextCharFormat, QColor, QTextCursor
+from ui.mainwindow import Ui_MainWindow
+from xml_editor_core import XMLEditor
 from graph_maker import GraphMaker
 
 class AppWindow(QMainWindow):
@@ -17,6 +21,7 @@ class AppWindow(QMainWindow):
         self.current_xml_content = ""
         self.current_file_path = ""
         self.ui.stackedWidget.setCurrentIndex(0)
+        self.correctFlag = False
         
         # Connect import page buttons
         self.ui.clearButton.clicked.connect(self.clear_inputs)
@@ -24,6 +29,14 @@ class AppWindow(QMainWindow):
         self.ui.importButton.clicked.connect(self.import_file)
         
         # Connect processing function buttons
+
+        # XML Processing Functions
+        self.ui.XMLconsistency_2.clicked.connect(self.consistency_xml)
+        self.ui.Prettifying_2.clicked.connect(self.prettifying_xml)
+        self.ui.XMLtoJSON_2.clicked.connect(self.convert_xml)
+        self.ui.Minifying_2.clicked.connect(self.minify_xml)
+        self.ui.Compression_2.clicked.connect(self.compress_xml)
+        self.ui.Decompresssion_2.clicked.connect(self.decompress_xml)
         
         # Connect network analysis buttons
         self.ui.mostActiveButton.clicked.connect(self.find_most_active_user)
@@ -39,41 +52,287 @@ class AppWindow(QMainWindow):
         self.ui.mutualButton.clicked.connect(self.find_mutual_followers)
         self.ui.searchButton.clicked.connect(self.search_posts)
 
+    def consistency_xml(self):
+        """Verify XML consistency"""
+        self.clear_box()
+
+        if not self.editor:
+            QMessageBox.warning(self, "Warning", "Please import XML first.")
+            return
+
+        try:
+            # Verify without fixing (no output file)
+            self.correctFlag = True
+            xml_queue = self.editor.verify()
+
+            # Initialize result first
+            result = "The XML file is valid and consistent.\n\n"
+
+            # If verify() returns data, show it
+            if xml_queue:
+                result += f"Verification Details:\n{xml_queue}\n\n"
+
+            # Display in text box
+            self.ui.textEdit_2.setPlainText(result)
+
+        except Exception as e:
+            error_msg = f" XML Consistency Check Failed!\n\n{str(e)}"
+            self.ui.textEdit_2.setPlainText(error_msg)
+
+
+    def prettifying_xml(self):
+        if self.correctFlag:
+            self.clear_box()
+
+            if not self.editor:
+                QMessageBox.warning(self, "Warning", "Please import XML first.")
+                return
+
+            try:
+                prettified_output = self.editor.format()
+
+                self.ui.textEdit_2.setPlainText(prettified_output)
+
+            except Exception as e:
+                QMessageBox.critical(self, "Error", f"Prettifying error:\n{e}")
+        else:
+            QMessageBox.critical(self, "Error", "You must validate first.")
+
+
+    def minify_xml(self):
+        """Minify XML"""
+        if self.correctFlag:
+            self.clear_box()
+
+            if not self.editor:
+                QMessageBox.warning(self, "Warning", "Please import XML first.")
+                return
+
+            try:
+                # Minify XML using the current editor's tree
+                minified_string = self.editor.minify(self.editor.tree.root)
+
+                # Show preview with appropriate message
+                result = "Complete minified XML:\n\n" + minified_string
+
+                self.ui.textEdit_2.setPlainText(result)
+
+            except Exception as e:
+                error_msg = f"✗ Minify Failed!\n\n{str(e)}"
+                self.ui.textEdit_2.setPlainText(error_msg)
+        else:
+            QMessageBox.critical(self, "Error", "You must validate first.")
+
+    def compress_xml(self):
+        """Compress XML file"""
+        if self.correctFlag:
+            self.clear_box()
+
+            if not self.editor or not self.current_file_path:
+                QMessageBox.warning(self, "Warning", "Please import XML first.")
+                return
+
+            try:
+                # Compress the XML file (returns compressed string)
+                compressed_string = self.editor.compress(self.current_file_path)
+
+                # Display the compressed XML string
+                self.ui.textEdit_2.setPlainText(compressed_string)
+
+            except Exception as e:
+                error_msg = f"✗ Compression Failed!\n\n{str(e)}"
+                self.ui.textEdit_2.setPlainText(error_msg)
+                QMessageBox.information(self, "Error", "File can't compress!")
+        else:
+            QMessageBox.critical(self, "Error", "You must validate first.")
+
+    def decompress_xml(self):
+        """Decompress XML file"""
+        self.clear_box()
+
+        if not self.editor or not self.current_file_path:
+            QMessageBox.warning(self, "Warning", "Please import XML first.")
+            return
+
+        try:
+            # Check if file is compressed (by extension or content)
+            is_compressed_file = self.current_file_path.endswith('.comp')
+
+            if not is_compressed_file:
+                # Create custom message box with "Import" button
+                msg_box = QMessageBox(self)
+                msg_box.setIcon(QMessageBox.Warning)
+                msg_box.setWindowTitle("Not a Compressed File")
+                msg_box.setText("This file doesn't appear to be compressed (.comp).")
+                msg_box.setInformativeText("What would you like to do?")
+
+                # Add custom buttons
+                import_button = msg_box.addButton("Import Compressed File", QMessageBox.AcceptRole)
+                cancel_button = msg_box.addButton("Cancel", QMessageBox.RejectRole)
+
+                msg_box.exec()
+
+                if msg_box.clickedButton() == import_button:
+                    # Let user browse for a compressed file
+                    file_path, _ = QFileDialog.getOpenFileName(
+                        self,
+                        "Select Compressed XML File",
+                        "",
+                        "Compressed Files (*.comp);;All Files (*)"
+                    )
+
+                    if not file_path:
+                        # User cancelled file selection
+                        return
+
+                    # Update the file path to the new compressed file
+                    self.current_file_path = file_path
+                else:
+                    # User clicked Cancel
+                    return
+
+            # Decompress the file
+            decompressed_string = XMLEditor.decompress(self.current_file_path)
+
+            # Display decompressed result
+            self.ui.textEdit_2.setPlainText(decompressed_string)
+
+        except Exception as e:
+            error_msg = f" Decompression Failed!\n\n{str(e)}"
+            self.ui.textEdit_2.setPlainText(error_msg)
+            QMessageBox.critical(self, "Error", f"Decompression error:\n{e}")
+
+    def convert_xml(self):
+        """Convert XML to JSON and display it"""
+        if self.correctFlag:
+            self.clear_box()
+
+            if not self.editor:
+                QMessageBox.warning(self, "Warning", "Please import XML first.")
+                return
+
+            try:
+                # Convert XML to dictionary
+                json_dict = self.editor.convert(self.editor.tree.root)
+                json_string = json.dumps(json_dict, indent=2, ensure_ascii=False)            # Display directly as string
+                self.ui.textEdit_2.setPlainText(str(json_string))
+
+            except Exception as e:
+                error_msg = f"✗ Conversion Failed!\n\n{str(e)}"
+                self.ui.textEdit_2.setPlainText(error_msg)
+                QMessageBox.critical(self, "Error", f"Conversion error:\n{e}")
+        else:
+            QMessageBox.critical(self, "Error", "You must validate first.")
+
+
+    def highlight_error_lines(self, text_edit, error_lines):
+        """Highlight specific lines in a QPlainTextEdit with red background"""
+        # Clear previous highlights
+        cursor = text_edit.textCursor()
+        cursor.select(QTextCursor.Document)
+        default_format = QTextCharFormat()
+        cursor.setCharFormat(default_format)
+        cursor.clearSelection()
+        
+        # Error highlight format
+        error_format = QTextCharFormat()
+        error_format.setBackground(QColor(255, 100, 100, 100))  # Light red background
+        
+        # Highlight each error line
+        document = text_edit.document()
+        for line_num in error_lines:
+            block = document.findBlockByLineNumber(line_num - 1)  # 0-indexed
+            if block.isValid():
+                cursor = text_edit.textCursor()
+                cursor.setPosition(block.position())
+                cursor.select(QTextCursor.LineUnderCursor)
+                cursor.mergeCharFormat(error_format)
+    
+    def _proceed_to_main_page(self):
+        """Process XML and switch to the main page"""
+        xml_queue = self.editor.verify()
+        
+        queue_list = list(xml_queue)
+        i = 0
+        f = ""
+        while i < len(xml_queue):
+            item = queue_list[i]
+            f += item + '\n'
+            i += 1
+            
+        self.current_xml_content = ''.join(f)
+        
+        temp_file = "temp_import.xml"
+        with open(temp_file, 'w', encoding='utf-8') as f:
+            f.write(self.current_xml_content)
+        
+        self.current_file_path = temp_file
+        self.editor = XMLEditor(temp_file)
+        
+        self.ui.stackedWidget.setCurrentIndex(1)
+        self.ui.inputText.setPlainText(self.current_xml_content)
+        self.ui.textEdit_2.setPlainText("XML imported successfully from file!\n\nReady to use processing functions.")
+    
     def clear_inputs(self):
         self.ui.filePathInput.clear()
         self.ui.xmlInput.clear()
+        self.ui.xmlInput.setReadOnly(False)
+
+    def clear_box(self):
+        self.ui.textEdit_2.clear()
 
     def browse_file(self):
         file_path, _ = QFileDialog.getOpenFileName(
-            self, 
-            "Select XML File", 
-            "", 
+            self,
+            "Select XML File",
+            "",
             "XML Files (*.xml);;All Files (*)"
         )
         if file_path:
             self.ui.filePathInput.setText(file_path)
             try:
+                self.current_file_path = file_path
                 with open(file_path, 'r', encoding='utf-8') as f:
                     content = f.read()
                     self.ui.xmlInput.setPlainText(content)
+                self.ui.xmlInput.setReadOnly(True)
             except Exception as e:
                 QMessageBox.warning(self, "Error", f"Could not read file: {e}")
 
     def import_file(self):
         file_path = self.ui.filePathInput.text()
         xml_text = self.ui.xmlInput.toPlainText()
-        
+                
         if file_path and Path(file_path).exists():
             try:
                 with open(file_path, 'r', encoding='utf-8') as f:
                     self.current_xml_content = f.read()
                 self.current_file_path = file_path
                 self.editor = XMLEditor(file_path)
-            
-                self.ui.stackedWidget.setCurrentIndex(1)  # go to page
-                self.ui.textEdit_2.setPlainText("XML imported successfully from file!\n\nReady to use processing functions.")
-                QMessageBox.information(self, "Success", "XML imported successfully!\n\nYou can now use the processing functions.")
+                #=================
+                #Checking for errors
+                errors = self.editor.verify(logFlag=True)
+                            
+                if errors:  # Highlight error lines and delay page switch
+                    error_lines = [err['line'] for err in errors]
+                    self.highlight_error_lines(self.ui.xmlInput, error_lines)
+                    
+                    # Show error details in popup
+                    error_text = ""
+                    for err in errors:
+                        error_text += f"[{err['type']}] Line {err['line']}: {err['message']}\n"
+                    error_text += f"\nTotal errors found: {len(errors)}"
+                    
+                    QMessageBox.warning(self, "Errors Found", error_text)
+                    QMessageBox.information(self, "Correcting", "Correcting errors...")
+                    
+                    # Delay switching to next page so user can see highlights
+                    QTimer.singleShot(1000, self._proceed_to_main_page)  # 2 second delay
+                    return
+                #=================
                 
+                self._proceed_to_main_page()
+
             except Exception as e:
                 QMessageBox.critical(self, "Error", f"Error importing XML: {e}")
                 
@@ -88,6 +347,7 @@ class AppWindow(QMainWindow):
                 self.editor = XMLEditor(temp_file)
             
                 self.ui.stackedWidget.setCurrentIndex(1)
+                self.ui.inputText.setPlainText(self.current_xml_content)
                 self.ui.textEdit_2.setPlainText("XML imported successfully from text input!\n\nReady to use processing functions.")
                 QMessageBox.information(self, "Success", "XML imported successfully!\n\nYou can now use the processing functions.")
                 
@@ -221,7 +481,7 @@ class AppWindow(QMainWindow):
             return
 
         try:
-            self.editor.graph.graph_draw()
+            self.editor.graph.graph_draw(None)
             self.ui.textEdit_2.append("\nGraph displayed in a new window.")
         except Exception as e:
             QMessageBox.critical(self, "Error", f"Graph error:\n{e}")
@@ -266,6 +526,8 @@ def run_app():
 
     sys.exit(app.exec())
 
-
+# Add these lines at the end:
+if __name__ == "__main__":
+    run_app()
 # to run in main.py make sure to import run_app from ui.app 
 # and call run_app() in the main function

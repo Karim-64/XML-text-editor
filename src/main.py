@@ -1,4 +1,5 @@
 import argparse
+from ui.app import run_app
 from xml_editor_core import XMLEditor
 
 def main():
@@ -7,7 +8,7 @@ def main():
                         ,choices = ["verify", "format", "json", "mini",
                                     "compress", "decompress", "most_active", 
                                     "most_influencer", "mutual", "suggest", 
-                                    "search","draw"])
+                                    "search","draw" , "gui"])
     parser.add_argument("-i", "--input", help="<file_name.xml>", type=str)
     parser.add_argument("-w", "--word", help="<word in posts>", type=str)
     parser.add_argument("-t", "--topic", help="<topic in posts>", type=str)
@@ -18,6 +19,11 @@ def main():
     args = parser.parse_args()
     
     #===================================================
+    
+    if args.command == "gui":
+        run_app()
+        return
+    
     # Parses input file path from CLI
     editor : XMLEditor = XMLEditor(args.input)
     #===================================================
@@ -90,5 +96,5 @@ def main():
         raise ValueError("No such command exists")
 
 
-# if __name__ == "__main__":
-#     main()
+if __name__ == "__main__":
+    main()
