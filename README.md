@@ -41,6 +41,24 @@ cd xml-editor
 pip install -e .
 ```
 
+## Project Structure
+```
+xml-editor/
+├── src/
+│   ├── main.py                 # main
+│   ├── xml_editor_core.py      # Core XML processing logic
+│   ├── xml_tree.py             # Tree data structure
+│   ├── graph_maker.py          # Network analysis
+│   └── ui/
+│       ├── app.py              # GUI application
+│       ├── mainwindow.h        # Qt Creator artifacts
+│       └── mainwindow.cpp      # Qt implementation
+├── sample_inputs/              # Sample input XML files for testing
+├── generated_outputs/          # Output examples
+├── pyproject.toml              # Project configuration
+└── README.md
+```
+
 ## Usage
 
 ### Graphical User Interface
@@ -162,6 +180,7 @@ Social network data is represented using an adjacency matrix and NetworkX for gr
 
 ### Compression Algorithm
 The compression feature uses lookup tables for tag names, text content, and whitespace patterns, significantly reducing file size while maintaining data integrity.
+
 
 
 
