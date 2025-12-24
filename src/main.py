@@ -1,11 +1,6 @@
 import argparse
 from xml_editor_core import XMLEditor
 
-#==========
-#TODO:
-# rename writePrettified to writeFromString
-#==========
-
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("command", help = "Choose a command", type=str
@@ -28,12 +23,15 @@ def main():
     #===================================================
     
     if args.command == "verify":
-        xml_queue = editor.verify()
-        editor.tree.writeVerified(args.output,xml_queue)
-
+        if(args.fix):
+            xml_queue = editor.verify(args.output)
+            editor.tree.writeVerified(args.output,xml_queue)
+        else:
+            xml_queue = editor.verify()
+            
     elif args.command == "format":
         prettifiedOutput = editor.format()
-        editor.tree.writePrettified(args.output, prettifiedOutput)
+        editor.tree.writeFromString(args.output, prettifiedOutput)
         
     elif args.command == "json":
         jsonDictionary = editor.convert(editor.tree.root, )
@@ -41,15 +39,15 @@ def main():
         
     elif args.command == "mini":
         minified_string = editor.minify(editor.tree.root)
-        editor.tree.writePrettified(args.output, minified_string)
+        editor.tree.writeFromString(args.output, minified_string)
         
     elif args.command == "compress":
         compressed_xml = XMLEditor.compress(args.input)
-        editor.tree.writePrettified(args.output, compressed_xml)
+        editor.tree.writeFromString(args.output, compressed_xml)
         
     elif args.command == "decompress":
         decompressed_xml = XMLEditor.decompress(args.input)
-        editor.tree.writePrettified(args.output, decompressed_xml)
+        editor.tree.writeFromString(args.output, decompressed_xml)
         
     elif args.command == "draw":
         editor.graph.graph_draw(args.output)
@@ -81,12 +79,10 @@ def main():
         print(f"Suggested Users: {[user.name for user in users]}")
     
     elif args.command == "search" and args.word:
-        #TODO: print pretty post
         searched_posts_by_word = editor.graph.search_by_body(args.word)
         print([i for i in searched_posts_by_word])
         
     elif args.command == "search" and args.topic:
-        #TODO: print pretty post
         searched_posts_by_topic = editor.graph.search_by_topic(args.topic)
         print(searched_posts_by_topic)
         

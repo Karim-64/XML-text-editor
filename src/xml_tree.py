@@ -112,7 +112,7 @@ class XTree:
                     f.write(item + '\n')
                     i += 1
     
-    def writePrettified(self, filePathWrite : str, formattedString: str) -> None:
+    def writeFromString(self, filePathWrite : str, formattedString: str) -> None:
         """Creates new XML File from a prettified xml string
         
         Args:
