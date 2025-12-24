@@ -1,0 +1,1645 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1274</width>
+    <height>816</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">QMainWindow#MainWindow {
+    background: qlineargradient(
+        x1:0, y1:0, x2:1, y2:1,
+        stop:0 #0B0F20,
+        stop:0.4 #121A33,
+        stop:0.7 #0C1125,
+        stop:1 #0B0F20
+    );
+    font-family: &quot;Segoe UI&quot;, sans-serif;
+    color: #E0E7FF;
+}
+QWidget#centralWidget,
+QWidget#centralWidget_2,
+QWidget#centralWidget_3 {
+    background: rgba(255,255,255,0.04);
+    backdrop-filter: blur(18px);
+    border-radius: 24px;
+    border: 1px solid rgba(79,139,255,0.3);
+    box-shadow: 0 10px 50px rgba(0,0,64,0.7), 0 0 25px rgba(79,139,255,0.35);
+    transition: transform 0.35s ease, box-shadow 0.35s ease;
+}
+QWidget#centralWidget:hover,
+QWidget#centralWidget_2:hover,
+QWidget#centralWidget_3:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 15px 60px rgba(0,0,64,0.9), 0 0 50px rgba(79,139,255,0.55);
+}
+</string>
+  </property>
+  <widget class="QWidget" name="centralWidget_2">
+   <layout class="QGridLayout" name="gridLayout_5">
+    <item row="0" column="0">
+     <widget class="QStackedWidget" name="stackedWidget">
+      <property name="styleSheet">
+       <string notr="true">QStackedWidget {
+    background: rgba(255,255,255,0.1);
+    backdrop-filter: blur(18px);
+    border-radius: 24px;
+    border: 1px solid rgba(79,139,255,0.3);
+    box-shadow: 0 10px 50px rgba(0,0,64,0.7), 0 0 25px rgba(79,139,255,0.35);
+    transition: transform 0.35s ease, box-shadow 0.35s ease;
+}
+QStackedWidget:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 15px 60px rgba(0,0,64,0.9), 0 0 50px rgba(79,139,255,0.55);
+}
+</string>
+      </property>
+      <property name="currentIndex">
+       <number>1</number>
+      </property>
+      <widget class="QWidget" name="page_3">
+       <property name="styleSheet">
+        <string notr="true">
+/* =====================================================
+   CENTRAL WIDGETS (GLASS + DEEP NEON)
+   ===================================================== */
+/* =====================================================
+   CARD CONTAINER (MONOCHROME NEON PREMIUM)
+   ===================================================== */
+QFrame#cardFrame {
+    background: qlineargradient(
+        x1:0, y1:0, x2:1, y2:1,
+        stop:0 rgba(18,18,55,0.9),
+        stop:1 rgba(38,38,95,0.9)
+    );
+    border-radius: 28px;
+    border: 1px solid rgba(79,139,255,0.6);
+    box-shadow: 0 6px 35px rgba(0,0,64,0.8), 0 0 18px rgba(79,139,255,0.45);
+    transition: transform 0.35s ease, box-shadow 0.35s ease;
+}
+QFrame#cardFrame:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 18px 65px rgba(0,0,64,0.95), 0 0 55px rgba(79,139,255,0.65);
+}
+
+/* =====================================================
+   TITLES (PREMIUM MONOCHROME NEON)
+   ===================================================== */
+QLabel#titleLabel {
+    font-size: 34px;
+    font-weight: 900;
+    color: #E0E7FF;
+    text-shadow: 0 0 12px #4F8BFF, 0 0 25px #6FA3FF, 0 0 40px #2563EB;
+}
+QLabel#subtitleLabel {
+    font-size: 17px;
+    color: #A0AEC0;
+    text-shadow: 0 0 4px rgba(0,0,64,0.6);
+    letter-spacing: 0.6px;
+}
+
+/* =====================================================
+   INPUT FIELDS (GLASS + NEON PREMIUM)
+   ===================================================== */
+QTextEdit, QLineEdit {
+    height: 50px;
+    padding: 0 18px;
+    font-size: 15px;
+    color: #E0E7FF;
+    background: rgba(255,255,255,0.06);
+    border-radius: 18px;
+    border: 1px solid rgba(79,139,255,0.45);
+    backdrop-filter: blur(14px);
+    box-shadow: inset 0 0 8px rgba(79,139,255,0.2);
+    transition: all 0.35s ease, box-shadow 0.35s ease;
+}
+QTextEdit, QLineEdit:hover {
+    border: 1px solid #4F8BFF;
+    box-shadow: 0 0 16px #4F8BFF, inset 0 0 8px rgba(79,139,255,0.25);
+}
+QTextEdit, QLineEdit:focus {
+    border: 2px solid #2563EB;
+    box-shadow: 0 0 25px #2563EB, inset 0 0 12px rgba(79,139,255,0.3);
+}
+/* =====================================================
+   BUTTON COMMON STYLE (ALL THREE)
+   ===================================================== */
+/* =====================================================
+   BUTTON COMMON STYLE (ALL THREE)
+   ===================================================== */
+
+/* =====================================================
+   BROWSE BUTTON - GLASS STYLE + UNIFIED BORDER
+   ===================================================== */
+QPushButton#browseButton {
+    background: rgba(255,255,255,0.05);
+height: 64px;
+    min-width: 180px;
+    font-size: 20px;
+    font-weight: 700;
+    color: #ffffff;
+    border-radius: 32px; /* fully rounded corners */
+    border: 2px solid rgba(139,92,246,0.5); /* unified border */
+    transition: all 0.3s cubic-bezier(0.4,0,0.2,1);
+    box-shadow: 0 12px 50px rgba(139,92,246,0.6), 0 0 70px rgba(99,102,241,0.4);
+}
+
+QPushButton#browseButton:hover {
+    background: qlineargradient(
+        x1:0, y1:0, x2:1, y2:1,
+        stop:0 #c084fc,
+        stop:0.2 #a78bfa,
+        stop:0.5 #818cf8,
+        stop:0.8 #60a5fa,
+        stop:1 #3b82f6
+    );
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 25px 90px rgba(139,92,246,1), 0 0 120px rgba(99,102,241,0.8);
+    border: 2px solid rgba(168,85,247,0.8);
+}
+
+QPushButton#browseButton:pressed {
+    transform: translateY(-1px) scale(0.98);
+    box-shadow: 0 12px 50px rgba(139,92,246,0.7), 0 0 70px rgba(99,102,241,0.5);
+}
+
+/* =====================================================
+   IMPORT BUTTON - PREMIUM GRADIENT STYLE
+   ===================================================== */
+QPushButton#importButton {
+   height: 54px;
+    min-width: 150px;
+    font-size: 20px;
+    font-weight: 700;
+    color: #E0E7FF;
+    border-radius: 20px;
+    border: none;
+      background: qlineargradient(
+        x1:0, y1:0, x2:1, y2:1,
+        stop:0 #c084fc,
+        stop:0.2 #a78bfa,
+        stop:0.5 #818cf8,
+        stop:0.8 #60a5fa,
+        stop:1 #3b82f6
+    );
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 25px 90px rgba(139,92,246,1), 0 0 120px rgba(99,102,241,0.8);
+    border: 2px solid rgba(168,85,247,0.8);
+}
+
+QPushButton#importButton:hover {
+    background: qlineargradient(
+        x1:0, y1:0, x2:1, y2:1,
+        stop:0 #a855f7,
+        stop:0.2 #8b5cf6,
+        stop:0.5 #6366f1,
+        stop:0.8 #3b82f6,
+        stop:1 #2563eb
+    );
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 25px 90px rgba(139,92,246,1), 0 0 120px rgba(99,102,241,0.8);
+    border: 2px solid rgba(168,85,247,0.8);
+}
+
+QPushButton#importButton:pressed {
+    transform: translateY(-1px) scale(0.98);
+    box-shadow: 0 12px 50px rgba(139,92,246,0.7), 0 0 70px rgba(99,102,241,0.5);
+}
+
+/* =====================================================
+   CLEAR BUTTON - SAME AS IMPORT
+   ===================================================== */
+QPushButton#clearButton {
+   height: 54px;
+    min-width: 150px;
+    font-size: 20px;
+    font-weight: 700;
+    color: #E0E7FF;
+    border-radius: 20px;
+    border: none;
+   background: qlineargradient(
+        x1:0, y1:0, x2:1, y2:1,
+        stop:0 #c084fc,
+        stop:0.2 #a78bfa,
+        stop:0.5 #818cf8,
+        stop:0.8 #60a5fa,
+        stop:1 #3b82f6
+    );
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 25px 90px rgba(139,92,246,1), 0 0 120px rgba(99,102,241,0.8);
+    border: 2px solid rgba(168,85,247,0.8);
+}
+
+QPushButton#clearButton:hover {
+    background: qlineargradient(
+        x1:0, y1:0, x2:1, y2:1,
+        stop:0 #a855f7,
+        stop:0.2 #8b5cf6,
+        stop:0.5 #6366f1,
+        stop:0.8 #3b82f6,
+        stop:1 #2563eb
+    );
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 25px 90px rgba(139,92,246,1), 0 0 120px rgba(99,102,241,0.8);
+    border: 2px solid rgba(168,85,247,0.8);
+}
+
+QPushButton#clearButton:pressed {
+    transform: translateY(-1px) scale(0.98);
+    box-shadow: 0 12px 50px rgba(139,92,246,0.7), 0 0 70px rgba(99,102,241,0.5);
+}
+
+
+/* =====================================================
+   MENU BAR - PREMIUM STYLE WITH ROUNDED CORNERS
+   ===================================================== */
+QMenuBar {
+    background: rgba(18,18,55,0.8);
+    color: #E0E7FF;
+    border-bottom: 1px solid rgba(79,139,255,0.3);
+    padding: 5px;
+    font-size: 14px;
+    border-radius: 8px;
+}
+
+QMenuBar::item {
+    background: transparent;
+    padding: 8px 16px;
+    border-radius: 12px;
+    margin: 2px;
+}
+
+QMenuBar::item:selected {
+    background: rgba(79,139,255,0.2);
+    border: 1px solid rgba(79,139,255,0.4);
+    border-radius: 12px;
+}
+
+QMenuBar::item:pressed {
+    background: rgba(79,139,255,0.3);
+    border-radius: 12px;
+}
+
+/* =====================================================
+   MENU DROPDOWN - PREMIUM STYLE WITH ROUNDED CORNERS
+   ===================================================== */
+QMenu {
+    background: qlineargradient(
+        x1:0, y1:0, x2:0, y2:1,
+        stop:0 rgba(18,18,55,0.95),
+        stop:1 rgba(28,28,75,0.95)
+    );
+    color: #E0E7FF;
+    border: 1px solid rgba(79,139,255,0.5);
+    border-radius: 16px;
+    padding: 8px;
+}
+
+QMenu::item {
+    padding: 10px 30px 10px 20px;
+    border-radius: 10px;
+    margin: 2px;
+}
+
+QMenu::item:selected {
+    background: qlineargradient(
+        x1:0, y1:0, x2:1, y2:0,
+        stop:0 rgba(139,92,246,0.3),
+        stop:1 rgba(99,102,241,0.3)
+    );
+    border: 1px solid rgba(139,92,246,0.5);
+    border-radius: 10px;
+}
+
+QMenu::separator {
+    height: 1px;
+    background: rgba(79,139,255,0.3);
+    margin: 5px 10px;
+    border-radius: 1px;
+}
+</string>
+       </property>
+       <layout class="QGridLayout" name="gridLayout_3">
+        <item row="0" column="0">
+         <widget class="QWidget" name="centralWidget" native="true">
+          <property name="styleSheet">
+           <string notr="true"/>
+          </property>
+          <layout class="QVBoxLayout" name="verticalLayout">
+           <item>
+            <layout class="QVBoxLayout" name="rootLayout">
+             <item>
+              <widget class="QFrame" name="cardFrame">
+               <property name="minimumSize">
+                <size>
+                 <width>0</width>
+                 <height>0</height>
+                </size>
+               </property>
+               <property name="styleSheet">
+                <string notr="true"/>
+               </property>
+               <property name="frameShape">
+                <enum>QFrame::Shape::StyledPanel</enum>
+               </property>
+               <property name="frameShadow">
+                <enum>QFrame::Shadow::Raised</enum>
+               </property>
+               <layout class="QVBoxLayout" name="verticalLayout_2">
+                <item>
+                 <widget class="QLabel" name="titleLabel">
+                  <property name="styleSheet">
+                   <string notr="true"/>
+                  </property>
+                  <property name="text">
+                   <string>Import your XML file</string>
+                  </property>
+                  <property name="alignment">
+                   <set>Qt::AlignmentFlag::AlignCenter</set>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QWidget" name="fileInputContainer" native="true">
+                  <property name="minimumSize">
+                   <size>
+                    <width>300</width>
+                    <height>150</height>
+                   </size>
+                  </property>
+                  <property name="styleSheet">
+                   <string notr="true"/>
+                  </property>
+                  <layout class="QGridLayout" name="gridLayout">
+                   <item row="2" column="0">
+                    <widget class="QLineEdit" name="filePathInput">
+                     <property name="minimumSize">
+                      <size>
+                       <width>0</width>
+                       <height>42</height>
+                      </size>
+                     </property>
+                     <property name="styleSheet">
+                      <string notr="true"/>
+                     </property>
+                     <property name="placeholderText">
+                      <string>Enter file path...</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="2" column="1">
+                    <widget class="QPushButton" name="browseButton">
+                     <property name="minimumSize">
+                      <size>
+                       <width>184</width>
+                       <height>0</height>
+                      </size>
+                     </property>
+                     <property name="font">
+                      <font>
+                       <pointsize>-1</pointsize>
+                       <bold>true</bold>
+                      </font>
+                     </property>
+                     <property name="text">
+                      <string>Browse</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="3" column="0" colspan="2">
+                    <widget class="QTextEdit" name="xmlInput">
+                     <property name="placeholderText">
+                      <string>Type your XML content here...</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="0" column="0">
+                    <widget class="QLabel" name="subtitleLabel">
+                     <property name="enabled">
+                      <bool>true</bool>
+                     </property>
+                     <property name="minimumSize">
+                      <size>
+                       <width>0</width>
+                       <height>0</height>
+                      </size>
+                     </property>
+                     <property name="styleSheet">
+                      <string notr="true"/>
+                     </property>
+                     <property name="text">
+                      <string>Upload an XML file from your computer or paste a URL</string>
+                     </property>
+                    </widget>
+                   </item>
+                  </layout>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QWidget" name="actionButtonContainer" native="true">
+                  <property name="enabled">
+                   <bool>true</bool>
+                  </property>
+                  <property name="minimumSize">
+                   <size>
+                    <width>0</width>
+                    <height>0</height>
+                   </size>
+                  </property>
+                  <layout class="QHBoxLayout" name="horizontalLayout">
+                   <item>
+                    <widget class="QPushButton" name="clearButton">
+                     <property name="minimumSize">
+                      <size>
+                       <width>154</width>
+                       <height>0</height>
+                      </size>
+                     </property>
+                     <property name="styleSheet">
+                      <string notr="true"/>
+                     </property>
+                     <property name="text">
+                      <string>Clear</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item>
+                    <widget class="QPushButton" name="importButton">
+                     <property name="minimumSize">
+                      <size>
+                       <width>154</width>
+                       <height>0</height>
+                      </size>
+                     </property>
+                     <property name="layoutDirection">
+                      <enum>Qt::LayoutDirection::LeftToRight</enum>
+                     </property>
+                     <property name="styleSheet">
+                      <string notr="true"/>
+                     </property>
+                     <property name="text">
+                      <string>Import</string>
+                     </property>
+                    </widget>
+                   </item>
+                  </layout>
+                 </widget>
+                </item>
+               </layout>
+              </widget>
+             </item>
+            </layout>
+           </item>
+          </layout>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="page_4">
+       <property name="maximumSize">
+        <size>
+         <width>16777215</width>
+         <height>767</height>
+        </size>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">/* =====================================================
+   ENHANCED LAYOUT STYLES
+   ===================================================== */
+/* =====================================================
+   PAGE 2 - COMPLETE STYLESHEET
+   ===================================================== */
+
+/* Page Container */
+QWidget#page_4 {
+    background: transparent;
+    border: none;
+}
+
+/* Main Card Container */
+QFrame#cardFrame_3 {
+    background: qlineargradient(
+        x1:0, y1:0, x2:1, y2:1,
+        stop:0 rgba(18,18,55,0.95),
+        stop:1 rgba(28,28,65,0.95)
+    );
+    border-radius: 32px;
+    border: 2px solid rgba(139,92,246,0.4);
+    box-shadow: 0 20px 60px rgba(0,0,0,0.6), 
+                0 0 40px rgba(79,139,255,0.3),
+                inset 0 1px 0 rgba(255,255,255,0.1);
+}
+
+/* Main Title */
+QLabel#functionLabel {
+    font-size: 42px;
+    font-weight: 900;
+    background-clip: text;
+    color: white;
+
+    text-shadow: 0 0 30px rgba(139,92,246,0.5);
+  qproperty-alignment: 'AlignCenter';
+    qproperty-alignment: AlignCenter;
+}
+
+/* =====================================================
+   SECTION LABELS
+   ===================================================== */
+QLabel#sectionLabel1,
+QLabel#sectionLabel2,
+QLabel#sectionLabel3,
+QLabel#sectionLabel4 {
+    font-size: 18px;
+    font-weight: 600;
+    color: #A0AEC0;
+    padding: 0px 0 5px 0;
+    border-bottom: 1px solid rgba(79,139,255,0.2);
+    margin: 0px 0 10px 0;
+}
+
+/* =====================================================
+   PROCESSING FUNCTION BUTTONS
+   ===================================================== */
+QPushButton#XMLconsistency_2,
+QPushButton#Minifying_2,
+QPushButton#Prettifying_2,
+QPushButton#XMLtoJSON_2,
+QPushButton#Compression_2,
+QPushButton#Decompresssion_2 {
+    background: rgba(255,255,255,0.08);
+    height: 45px;
+    min-width: 160px;
+    padding: 0 20px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #E0E7FF;
+    border-radius: 22px;
+    border: 1.5px solid rgba(139,92,246,0.5);
+    transition: all 0.3s cubic-bezier(0.4,0,0.2,1);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
+
+QPushButton#XMLconsistency_2:hover,
+QPushButton#Minifying_2:hover,
+QPushButton#Prettifying_2:hover,
+QPushButton#XMLtoJSON_2:hover,
+QPushButton#Compression_2:hover,
+QPushButton#Decompresssion_2:hover {
+    background: qlineargradient(
+        x1:0, y1:0, x2:1, y2:0,
+        stop:0 #8B5CF6,
+        stop:1 #3B82F6
+    );
+    border: 1.5px solid rgba(255,255,255,0.3);
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(139,92,246,0.4);
+}
+
+QPushButton#XMLconsistency_2:pressed,
+QPushButton#Minifying_2:pressed,
+QPushButton#Prettifying_2:pressed,
+QPushButton#XMLtoJSON_2:pressed,
+QPushButton#Compression_2:pressed,
+QPushButton#Decompresssion_2:pressed {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 15px rgba(139,92,246,0.3);
+}
+
+/* =====================================================
+   NETWORK ANALYSIS BUTTONS
+   ===================================================== */
+QPushButton#mostActiveButton,
+QPushButton#mostInfluencerButton,
+QPushButton#user1suggestButton {
+     background: rgba(255,255,255,0.08);
+    height: 45px;
+    min-width: 160px;
+    padding: 0 20px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #E0E7FF;
+    border-radius: 22px;
+    border: 1.5px solid rgba(139,92,246,0.5);
+    transition: all 0.3s cubic-bezier(0.4,0,0.2,1);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
+
+QPushButton#mostActiveButton:hover,
+QPushButton#mostInfluencerButton:hover,
+QPushButton#user1suggestButton:hover {
+    background: qlineargradient(
+        x1:0, y1:0, x2:1, y2:0,
+        stop:0 #8B5CF6,
+        stop:1 #3B82F6
+    );
+    border: 1.5px solid rgba(255,255,255,0.3);
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(139,92,246,0.4);
+}
+
+QPushButton#mostActiveButton:pressed,
+QPushButton#mostInfluencerButton:pressed,
+QPushButton#user1suggestButton:pressed {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 15px rgba(139,92,246,0.3);
+}
+
+/* =====================================================
+   UTILITY BUTTONS
+   ===================================================== */
+QPushButton#graph_2,
+QPushButton#backButton,
+QPushButton#save_2 {
+    background: qlineargradient(
+        x1:0, y1:0, x2:1, y2:0,
+        stop:0 #8B5CF6,
+        stop:1 #3B82F6
+    );
+    height: 45px;
+    min-width: 160px;
+    padding: 0 25px;
+    font-size: 15px;
+    font-weight: 700;
+    color: white;
+    border-radius: 22px;
+    border: none;
+    box-shadow: 0 8px 30px rgba(139,92,246,0.4);
+    transition: all 0.3s cubic-bezier(0.4,0,0.2,1);
+}
+
+QPushButton#graph_2:hover,
+QPushButton#backButton:hover,
+QPushButton#save_2:hover {
+    background: qlineargradient(
+        x1:0, y1:0, x2:1, y2:0,
+        stop:0 #7C3AED,
+        stop:1 #2563EB
+    );
+    transform: translateY(-2px);
+    box-shadow: 0 12px 35px rgba(139,92,246,0.6);
+}
+
+QPushButton#graph_2:pressed,
+QPushButton#backButton:pressed,
+QPushButton#save_2:pressed {
+    background: qlineargradient(
+        x1:0, y1:0, x2:1, y2:0,
+        stop:0 #6D28D9,
+        stop:1 #1D4ED8
+    );
+    transform: translateY(0);
+    box-shadow: 0 4px 15px rgba(139,92,246,0.4);
+}
+
+/* =====================================================
+   RESULTS TEXT AREA
+   ===================================================== */
+QTextEdit#textEdit_2 {
+    padding: 20px;
+    font-size: 15px;
+    font-family: &quot;Consolas&quot;, &quot;Monaco&quot;, monospace;
+    color: #E0E7FF;
+    background: rgba(0,0,0,0.3);
+    border-radius: 20px;
+    border: 1px solid rgba(139,92,246,0.3);
+    selection-background-color: rgba(139,92,246,0.5);
+    box-shadow: inset 0 2px 10px rgba(0,0,0,0.3);
+    transition: all 0.3s ease;
+}
+
+QTextEdit#textEdit_2:focus {
+    border: 2px solid rgba(139,92,246,0.6);
+    box-shadow: inset 0 2px 15px rgba(0,0,0,0.4),
+                0 0 20px rgba(139,92,246,0.2);
+}
+
+/* =====================================================
+   SEARCH &amp; ANALYSIS SECTION
+   ===================================================== */
+QGroupBox#searchGroupBox {
+    background: qlineargradient(
+        x1:0, y1:0, x2:0, y2:1,
+        stop:0 rgba(255,255,255,0.05),
+        stop:1 rgba(255,255,255,0.03)
+    );
+    border: 1.5px solid rgba(139,92,246,0.4);
+    border-radius: 22px;
+    margin-top: 15px;
+    padding-top: 20px;
+    color: #CBD5E0;
+    font-size: 16px;
+    font-weight: 700;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.2),
+                inset 0 1px 0 rgba(255,255,255,0.1);
+}
+
+QGroupBox#searchGroupBox::title {
+    
+    font-style: italic;
+    font-size: 17px;
+    padding: 10px; color: #E0E7FF;
+    border-radius: 10px;
+    margin-top: 0px;
+    subcontrol-origin: margin;
+    left: 0px;
+  
+    
+}
+
+/* Search Section Labels */
+QLabel#mutualLabel,
+QLabel#searchLabel {
+    font-size: 14px;
+    font-weight: 600;
+    color: #A0AEC0;
+    padding: 5px 0;
+    min-width: 120px;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+}
+
+/* Search Input Fields */
+QLineEdit#lineEdit,
+QLineEdit#lineEdit_2 {
+    height: 40px;
+    padding: 0 18px;
+    font-size: 14px;
+    color: #E0E7FF;
+    background: rgba(255,255,255,0.07);
+    border-radius: 20px;
+    border: 1.5px solid rgba(139,92,246,0.3);
+    selection-background-color: rgba(139,92,246,0.5);
+    selection-color: #FFFFFF;
+    transition: all 0.3s ease;
+    box-shadow: inset 0 2px 8px rgba(0,0,0,0.2);
+}
+
+QLineEdit#lineEdit:hover,
+QLineEdit#lineEdit_2:hover {
+    border: 1.5px solid rgba(139,92,246,0.6);
+    background: rgba(255,255,255,0.09);
+    box-shadow: inset 0 2px 12px rgba(0,0,0,0.3),
+                0 0 0 2px rgba(139,92,246,0.1);
+}
+
+QLineEdit#lineEdit:focus,
+QLineEdit#lineEdit_2:focus {
+    border: 2px solid rgba(139,92,246,0.8);
+    background: rgba(255,255,255,0.1);
+    box-shadow: inset 0 2px 15px rgba(0,0,0,0.4),
+                0 0 0 3px rgba(139,92,246,0.15);
+}
+
+/* Search Buttons */
+QPushButton#mutualButton,
+QPushButton#searchButton {
+    height: 40px;
+    min-width: 100px;
+    padding: 0 25px;
+    font-size: 14px;
+    font-weight: 700;
+    color: #FFFFFF;
+    border-radius: 20px;
+    border: none;
+    background: qlineargradient(
+        x1:0, y1:0, x2:1, y2:0,
+        stop:0 rgba(139,92,246,0.9),
+        stop:1 rgba(99,102,241,0.9)
+    );
+    transition: all 0.3s cubic-bezier(0.4,0,0.2,1);
+    box-shadow: 0 6px 20px rgba(139,92,246,0.4);
+}
+
+QPushButton#mutualButton:hover,
+QPushButton#searchButton:hover {
+    background: qlineargradient(
+        x1:0, y1:0, x2:1, y2:0,
+        stop:0 rgba(168,85,247,0.9),
+        stop:1 rgba(124,58,237,0.9)
+    );
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(139,92,246,0.6),
+                0 0 20px rgba(139,92,246,0.3);
+}
+
+QPushButton#mutualButton:pressed,
+QPushButton#searchButton:pressed {
+    transform: translateY(0);
+    background: qlineargradient(
+        x1:0, y1:0, x2:1, y2:0,
+        stop:0 rgba(124,58,237,0.9),
+        stop:1 rgba(109,40,217,0.9)
+    );
+    box-shadow: 0 4px 15px rgba(139,92,246,0.4);
+}
+
+QGridLayout {
+    margin: 5px;
+    spacing: 15px;
+}
+
+QHBoxLayout, QVBoxLayout {
+    spacing: 6px;
+}
+
+QVBoxLayout#groupBoxVerticalLayout {
+    spacing: 15px;
+    margin: 15px;
+}
+
+QHBoxLayout#mutualHorizontalLayout,
+QHBoxLayout#searchHorizontalLayout {
+    spacing: 12px;
+    margin: 8px 0;
+}
+
+/* =====================================================
+   PLACEHOLDER TEXT
+   ===================================================== */
+QLineEdit#lineEdit::placeholder,
+QLineEdit#lineEdit_2::placeholder {
+    color: rgba(160,174,192,0.6);
+    font-style: italic;
+    font-size: 13px;
+}
+
+QTextEdit#textEdit_2::placeholder {
+    color: rgba(160,174,192,0.5);
+    font-style: italic;
+    font-size: 14px;
+}
+
+/* =====================================================
+   SCROLL BARS (Optional Enhancement)
+   ===================================================== */
+QScrollBar:vertical {
+    background: rgba(255,255,255,0.05);
+    width: 12px;
+    border-radius: 6px;
+    border: none;
+}
+
+QScrollBar::handle:vertical {
+    background: rgba(139,92,246,0.5);
+    border-radius: 6px;
+    min-height: 30px;
+}
+
+QScrollBar::handle:vertical:hover {
+    background: rgba(139,92,246,0.7);
+}
+
+QScrollBar::add-line:vertical,
+QScrollBar::sub-line:vertical {
+    height: 0;
+}
+
+QScrollBar:horizontal {
+    background: rgba(255,255,255,0.05);
+    height: 12px;
+    border-radius: 6px;
+    border: none;
+}
+
+QScrollBar::handle:horizontal {
+    background: rgba(139,92,246,0.5);
+    border-radius: 6px;
+    min-width: 30px;
+}
+
+QScrollBar::handle:horizontal:hover {
+    background: rgba(139,92,246,0.7);
+}
+give me the name of every thing so i can edit it in qt
+/* Main Card Layout Improvements */
+QWidget#page_4 {
+    background: qlineargradient(
+        x1:0, y1:0, x2:1, y2:1,
+        stop:0 #0F0F23,
+        stop:1 #1A1A2E
+    );
+    border: none;
+}
+
+QFrame#cardFrame_3 {
+    background: qlineargradient(
+        x1:0, y1:0, x2:1, y2:1,
+        stop:0 rgba(25,25,60,0.97),
+        stop:1 rgba(35,35,80,0.97)
+    );
+    border-radius: 32px;
+    border: 2px solid rgba(139,92,246,0.4);
+    box-shadow: 
+        0 25px 70px rgba(0,0,0,0.7),
+        0 0 50px rgba(79,139,255,0.4),
+        inset 0 1px 0 rgba(255,255,255,0.15),
+        inset 0 0 30px rgba(139,92,246,0.1);
+    padding: 25px;
+}
+
+/* =====================================================
+   SEARCH &amp; MUTUAL SECTION ONLY
+   ===================================================== */
+
+/* Group Box Container */
+QGroupBox#searchGroupBox {
+    background: qlineargradient(
+        x1:0, y1:0, x2:0, y2:1,
+        stop:0 rgba(255,255,255,0.05),
+        stop:1 rgba(255,255,255,0.03)
+    );
+    border: 1.5px solid rgba(139,92,246,0.4);
+    border-radius: 22px;
+    margin-top: 15px;
+    padding: 15px;
+    color: #CBD5E0;
+    font-size: 16px;
+    font-weight: 700;
+}
+
+
+
+/* Labels - ALIGNMENT FIXED */
+QLabel#mutualLabel {
+    font-size: 14px;
+    font-weight: 600;
+    color: #A0AEC0;
+    qproperty-alignment: 'AlignRight|AlignVCenter';
+    min-width: 120px;
+    padding-right: 10px;
+}
+
+QLabel#searchLabel {
+    font-size: 14px;
+    font-weight: 600;
+    color: #A0AEC0;
+    qproperty-alignment: 'AlignRight|AlignVCenter';
+    min-width: 120px;
+    padding-right: 10px;
+}
+
+/* Mutual Followers Input */
+QLineEdit#lineEdit {
+    height: 40px;
+    padding: 0 15px;
+    font-size: 14px;
+    color: #E0E7FF;
+    background: rgba(255,255,255,0.07);
+    border-radius: 20px;
+    border: 1.5px solid rgba(139,92,246,0.3);
+    min-width: 200px;
+}
+
+/* Search Text Input */
+QLineEdit#lineEdit_2 {
+    height: 40px;
+    padding: 0 15px;
+    font-size: 14px;
+    color: #E0E7FF;
+    background: rgba(255,255,255,0.07);
+    border-radius: 20px;
+    border: 1.5px solid rgba(139,92,246,0.3);
+    min-width: 180px;
+}
+
+/* Mutual Button */
+QPushButton#mutualButton {
+    height: 40px;
+    min-width: 110px;
+    padding: 0 15px;
+    font-size: 14px;
+    font-weight: 700;
+    color: #FFFFFF;
+    border-radius: 20px;
+    border: none;
+    background: qlineargradient(
+        x1:0, y1:0, x2:1, y2:0,
+        stop:0 rgba(139,92,246,0.9),
+        stop:1 rgba(99,102,241,0.9)
+    );
+}
+
+/* Search Button */
+QPushButton#searchButton {
+    height: 40px;
+    min-width: 80px;
+    padding: 0 15px;
+    font-size: 14px;
+    font-weight: 700;
+    color: #FFFFFF;
+    border-radius: 20px;
+    border: none;
+    background: qlineargradient(
+        x1:0, y1:0, x2:1, y2:0,
+        stop:0 rgba(139,92,246,0.9),
+        stop:1 rgba(99,102,241,0.9)
+    );
+}
+
+/* Common Button Hover */
+QPushButton#mutualButton:hover,
+QPushButton#searchButton:hover {
+    background: qlineargradient(
+        x1:0, y1:0, x2:1, y2:0,
+        stop:0 rgba(168,85,247,0.9),
+        stop:1 rgba(124,58,237,0.9)
+    );
+    transform: translateY(-2px);
+}
+
+/* Common Button Pressed */
+QPushButton#mutualButton:pressed,
+QPushButton#searchButton:pressed {
+    transform: translateY(0);
+    background: qlineargradient(
+        x1:0, y1:0, x2:1, y2:0,
+        stop:0 rgba(124,58,237,0.9),
+        stop:1 rgba(109,40,217,0.9)
+    );
+}
+
+/* Hover &amp; Focus States */
+QLineEdit#lineEdit:hover, QLineEdit#lineEdit:focus,
+QLineEdit#lineEdit_2:hover, QLineEdit#lineEdit_2:focus {
+    border: 2px solid rgba(139,92,246,0.6);
+    background: rgba(255,255,255,0.1);
+}
+QComboBox#searchModeCombo:hover, QComboBox#searchModeCombo:focus {
+    border: 2px solid rgba(139,92,246,0.6);
+    background: rgba(255,255,255,0.1);
+}
+/* Placeholder Text */
+QLineEdit#lineEdit::placeholder,
+QLineEdit#lineEdit_2::placeholder {
+    color: rgba(160,174,192,0.6);
+    font-style: italic;
+    font-size: 13px;
+}
+
+/* Horizontal Line Separator */
+QFrame#line {
+    background: rgba(139,92,246,0.3);
+    border: none;
+    height: 1px;
+    margin: 10px 0;
+}
+
+/* =====================================================
+   ENHANCED COMBOBOX
+   ===================================================== */
+
+QComboBox#searchModeCombo {
+    background: rgba(255,255,255,0.08);
+    height: 45px;
+    min-width: 160px;
+    padding: 0 20px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #E0E7FF;
+    border-radius: 22px;
+    border: 1.5px solid rgba(139,92,246,0.5);
+    transition: all 0.3s cubic-bezier(0.4,0,0.2,1);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+
+}
+
+QComboBox#searchModeCombo:hover {
+
+    border: 1.5px solid rgba(139,92,246,0.6);
+    background: rgba(255,255,255,0.09);
+    box-shadow: inset 0 2px 12px rgba(0,0,0,0.3),
+                0 0 0 2px rgba(139,92,246,0.1);
+
+}
+
+/* =====================================================
+   ENHANCED STATUS LABEL
+   ===================================================== */
+
+QLabel#statusLabel {
+    color: #A0AEC0;
+    font-style: italic;
+    font-size: 14px;
+    font-weight: 600;
+    padding: 15px;
+    background: rgba(30,30,70,0.6);
+    border-radius: 15px;
+    border-left: 4px solid #8B5CF6;
+    border-top: 1px solid rgba(139,92,246,0.3);
+    border-bottom: 1px solid rgba(139,92,246,0.3);
+    margin-top: 20px;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+    box-shadow: 
+        inset 0 1px 0 rgba(255,255,255,0.1),
+        0 4px 15px rgba(0,0,0,0.2);
+}
+
+/* =====================================================
+   LAYOUT SPACING IMPROVEMENTS
+   ===================================================== */
+
+QVBoxLayout#groupBoxVerticalLayout {
+    spacing: 18px;
+    margin: 20px 15px;
+}
+
+QHBoxLayout#mutualHorizontalLayout,
+QHBoxLayout#searchHorizontalLayout {
+    spacing: 15px;
+    margin: 10px 0;
+}
+
+/* Form rows spacing */
+QWidget {
+    spacing: 12px;
+}
+
+/* =====================================================
+   PLACEHOLDER ENHANCEMENTS
+   ===================================================== */
+
+QLineEdit#lineEdit::placeholder,
+QLineEdit#lineEdit_2::placeholder,
+QSpinBox::placeholder {
+    color: rgba(203,213,224,0.6);
+    font-style: italic;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+/* =====================================================
+   SECTION SEPARATORS (Visual organization)
+   ===================================================== */
+
+/* Optional: Add visual separators between sections */
+QFrame[frameShape=&quot;4&quot;] { /* HLine */
+    background: qlineargradient(
+        x1:0, y1:0, x2:1, y2:0,
+        stop:0 transparent,
+        stop:0.5 rgba(139,92,246,0.3),
+        stop:1 transparent
+    );
+    max-height: 1px;
+    margin: 20px 0;
+}
+
+QSpinBox {
+     background: rgba(255,255,255,0.08);
+    height: 45px;
+    min-width: 160px;
+    padding: 0 20px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #E0E7FF;
+    border-radius: 22px;
+    border: 1.5px solid rgba(139,92,246,0.5);
+    transition: all 0.3s cubic-bezier(0.4,0,0.2,1);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
+/* =====================================================
+   SPINBOX – SMALLER ARROWS (SIDE, MINIMAL)
+   ===================================================== */
+/* =====================================================
+   SPINBOX – CLEAR, VISIBLE ARROWS (COMPACT)
+   ===================================================== */
+
+/* =====================================================
+   SPINBOX – ARROWS (SLIGHTLY BIGGER + HOVER)
+   ===================================================== */
+
+
+/* Hover background */
+QSpinBox::up-button:hover,
+QSpinBox::down-button:hover {
+    background: rgba(139,92,246,0.45);
+}
+
+/* Pressed */
+QSpinBox::up-button:pressed,
+QSpinBox::down-button:pressed {
+    background: rgba(124,58,237,0.75);
+}
+
+/* =====================
+   ARROW SHAPES
+   ===================== */
+
+QSpinBox::up-arrow,
+QSpinBox::down-arrow {
+    margin: auto;
+    transition: all 0.2s ease;
+}
+
+
+
+/* Arrow hover glow */
+QSpinBox::up-button:hover QSpinBox::up-arrow,
+QSpinBox::down-button:hover QSpinBox::down-arrow {
+    border-bottom-color: #FFFFFF;
+    border-top-color: #FFFFFF;
+}
+
+/* =====================================================
+   COMBOBOX DROPDOWN LIST ENHANCEMENT
+   ===================================================== */
+QComboBox#searchModeCombo QAbstractItemView {
+    background: rgba(25, 25, 50, 0.95);
+    border: 1px solid rgba(139, 92, 246, 0.4);
+    border-radius: 12px;
+    padding: 8px;
+    outline: none;
+    selection-background-color: rgba(139, 92, 246, 0.5);
+    selection-color: white;
+    color: #E0E7FF;
+    font-size: 14px;
+    font-weight: 500;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+}
+
+/* List item hover effect */
+QComboBox#searchModeCombo QAbstractItemView::item {
+    height: 36px;
+    padding: 0 15px;
+    border-radius: 8px;
+    margin: 2px 0;
+}
+
+QComboBox#searchModeCombo QAbstractItemView::item:hover {
+    background: rgba(139, 92, 246, 0.3);
+    color: white;
+    font-weight: 600;
+}
+
+QComboBox#searchModeCombo QAbstractItemView::item:selected {
+    background: rgba(139, 92, 246, 0.6);
+    color: white;
+    font-weight: 600;
+    border-left: 3px solid #FFFFFF;
+}
+
+
+</string>
+       </property>
+       <layout class="QGridLayout" name="gridLayout_2">
+        <item row="0" column="0">
+         <widget class="QWidget" name="centralWidget_3" native="true">
+          <property name="styleSheet">
+           <string notr="true"/>
+          </property>
+          <layout class="QGridLayout" name="gridLayout_7">
+           <item row="0" column="0">
+            <layout class="QGridLayout" name="gridLayout_8">
+             <item row="0" column="0">
+              <widget class="QFrame" name="cardFrame_3">
+               <property name="minimumSize">
+                <size>
+                 <width>0</width>
+                 <height>0</height>
+                </size>
+               </property>
+               <property name="styleSheet">
+                <string notr="true"/>
+               </property>
+               <property name="frameShape">
+                <enum>QFrame::Shape::NoFrame</enum>
+               </property>
+               <layout class="QGridLayout" name="gridLayout_4">
+                <item row="1" column="1">
+                 <widget class="QWidget" name="widget_2" native="true">
+                  <layout class="QVBoxLayout" name="verticalLayout_6">
+                   <item>
+                    <widget class="QTextEdit" name="textEdit_2">
+                     <property name="styleSheet">
+                      <string notr="true">QTextEdit {
+    padding: 18px;
+    font-size: 15px;
+    color: #E0E7FF;
+    background: rgba(255,255,255,0.06);
+    border-radius: 18px;
+    border: 2px solid rgba(79,139,255,0.45);
+}
+
+QTextEditt:hover {
+    border: 2px solid #4F8BFF;
+}
+
+QTextEdit:focus {
+    border: 2px solid #2563EB;
+}</string>
+                     </property>
+                     <property name="readOnly">
+                      <bool>true</bool>
+                     </property>
+                     <property name="acceptRichText">
+                      <bool>false</bool>
+                     </property>
+                     <property name="placeholderText">
+                      <string>Processing results will be displayed here&quot;</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item>
+                    <widget class="QGroupBox" name="searchGroupBox">
+                     <property name="title">
+                      <string>Search and Mutuals</string>
+                     </property>
+                     <layout class="QVBoxLayout" name="verticalLayout_3">
+                      <item>
+                       <layout class="QHBoxLayout" name="horizontalLayout_6">
+                        <item>
+                         <layout class="QVBoxLayout" name="groupBoxVerticalLayout">
+                          <item>
+                           <widget class="QWidget" name="mutualHorizontalLayout" native="true">
+                            <layout class="QHBoxLayout" name="horizontalLayout_11">
+                             <property name="topMargin">
+                              <number>10</number>
+                             </property>
+                             <property name="rightMargin">
+                              <number>10</number>
+                             </property>
+                             <property name="bottomMargin">
+                              <number>10</number>
+                             </property>
+                             <item>
+                              <widget class="QLabel" name="mutualLabel">
+                               <property name="text">
+                                <string>Mutual Followers: </string>
+                               </property>
+                              </widget>
+                             </item>
+                             <item>
+                              <widget class="QLineEdit" name="lineEdit">
+                               <property name="font">
+                                <font>
+                                 <pointsize>-1</pointsize>
+                                </font>
+                               </property>
+                               <property name="placeholderText">
+                                <string>Enter user IDs separated by commas for ex:  1, 2</string>
+                               </property>
+                              </widget>
+                             </item>
+                             <item>
+                              <widget class="QPushButton" name="mutualButton">
+                               <property name="text">
+                                <string>Find Mutuals</string>
+                               </property>
+                              </widget>
+                             </item>
+                            </layout>
+                           </widget>
+                          </item>
+                          <item>
+                           <layout class="QHBoxLayout" name="searchHorizontalLayout">
+                            <item>
+                             <widget class="QLabel" name="searchLabel">
+                              <property name="text">
+                               <string>Search: </string>
+                              </property>
+                             </widget>
+                            </item>
+                            <item>
+                             <widget class="QComboBox" name="searchModeCombo">
+                              <property name="acceptDrops">
+                               <bool>true</bool>
+                              </property>
+                              <property name="placeholderText">
+                               <string>Search by</string>
+                              </property>
+                              <item>
+                               <property name="text">
+                                <string>Topic</string>
+                               </property>
+                              </item>
+                              <item>
+                               <property name="text">
+                                <string>Word</string>
+                               </property>
+                              </item>
+                             </widget>
+                            </item>
+                            <item>
+                             <widget class="QLineEdit" name="lineEdit_2">
+                              <property name="placeholderText">
+                               <string>Enter text to search</string>
+                              </property>
+                             </widget>
+                            </item>
+                            <item>
+                             <widget class="QPushButton" name="searchButton">
+                              <property name="text">
+                               <string>Search</string>
+                              </property>
+                             </widget>
+                            </item>
+                           </layout>
+                          </item>
+                         </layout>
+                        </item>
+                       </layout>
+                      </item>
+                     </layout>
+                    </widget>
+                   </item>
+                  </layout>
+                 </widget>
+                </item>
+                <item row="1" column="0">
+                 <widget class="QWidget" name="widget" native="true">
+                  <layout class="QVBoxLayout" name="verticalLayout_4">
+                   <item>
+                    <layout class="QGridLayout" name="gridLayout_6">
+                     <item row="12" column="0">
+                      <widget class="QSpinBox" name="spinBox">
+                       <property name="acceptDrops">
+                        <bool>true</bool>
+                       </property>
+                       <property name="toolTip">
+                        <string extracomment="Enter ID">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Enter user ID&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                       </property>
+                       <property name="specialValueText">
+                        <string>Enter ID</string>
+                       </property>
+                       <property name="value">
+                        <number>1</number>
+                       </property>
+                      </widget>
+                     </item>
+                     <item row="3" column="0">
+                      <widget class="QPushButton" name="Prettifying_2">
+                       <property name="minimumSize">
+                        <size>
+                         <width>204</width>
+                         <height>0</height>
+                        </size>
+                       </property>
+                       <property name="text">
+                        <string>Prettify XML</string>
+                       </property>
+                      </widget>
+                     </item>
+                     <item row="0" column="0">
+                      <widget class="QLabel" name="sectionLabel1">
+                       <property name="text">
+                        <string>Processing Functions</string>
+                       </property>
+                      </widget>
+                     </item>
+                     <item row="5" column="1">
+                      <widget class="QPushButton" name="Decompresssion_2">
+                       <property name="text">
+                        <string>Decompress</string>
+                       </property>
+                      </widget>
+                     </item>
+                     <item row="1" column="0">
+                      <widget class="QPushButton" name="XMLconsistency_2">
+                       <property name="minimumSize">
+                        <size>
+                         <width>204</width>
+                         <height>0</height>
+                        </size>
+                       </property>
+                       <property name="text">
+                        <string>Validate XML</string>
+                       </property>
+                      </widget>
+                     </item>
+                     <item row="1" column="1">
+                      <widget class="QPushButton" name="Minifying_2">
+                       <property name="text">
+                        <string>Minify XML</string>
+                       </property>
+                      </widget>
+                     </item>
+                     <item row="8" column="0">
+                      <widget class="QPushButton" name="mostActiveButton">
+                       <property name="text">
+                        <string>Most Active User </string>
+                       </property>
+                      </widget>
+                     </item>
+                     <item row="8" column="1">
+                      <widget class="QPushButton" name="mostInfluencerButton">
+                       <property name="text">
+                        <string>Most Influencer User</string>
+                       </property>
+                      </widget>
+                     </item>
+                     <item row="14" column="0">
+                      <widget class="QPushButton" name="graph_2">
+                       <property name="text">
+                        <string>graph</string>
+                       </property>
+                      </widget>
+                     </item>
+                     <item row="13" column="0">
+                      <widget class="QLabel" name="sectionLabel4">
+                       <property name="text">
+                        <string>Action Panel</string>
+                       </property>
+                      </widget>
+                     </item>
+                     <item row="7" column="0">
+                      <widget class="QLabel" name="sectionLabel2">
+                       <property name="text">
+                        <string>Network Analysis</string>
+                       </property>
+                      </widget>
+                     </item>
+                     <item row="14" column="1">
+                      <widget class="QPushButton" name="save_2">
+                       <property name="text">
+                        <string>save</string>
+                       </property>
+                      </widget>
+                     </item>
+                     <item row="3" column="1">
+                      <widget class="QPushButton" name="XMLtoJSON_2">
+                       <property name="text">
+                        <string>XMLtoJSON</string>
+                       </property>
+                      </widget>
+                     </item>
+                     <item row="12" column="1">
+                      <widget class="QPushButton" name="user1suggestButton">
+                       <property name="text">
+                        <string>Suggest Users </string>
+                       </property>
+                      </widget>
+                     </item>
+                     <item row="11" column="0" colspan="2">
+                      <widget class="QLabel" name="sectionLabel3">
+                       <property name="text">
+                        <string>Suggest Users for a specific User using his ID</string>
+                       </property>
+                      </widget>
+                     </item>
+                     <item row="5" column="0">
+                      <widget class="QPushButton" name="Compression_2">
+                       <property name="minimumSize">
+                        <size>
+                         <width>204</width>
+                         <height>0</height>
+                        </size>
+                       </property>
+                       <property name="text">
+                        <string>Compress</string>
+                       </property>
+                      </widget>
+                     </item>
+                     <item row="15" column="0" colspan="2">
+                      <widget class="QPushButton" name="backButton">
+                       <property name="text">
+                        <string>Go back to Import</string>
+                       </property>
+                      </widget>
+                     </item>
+                    </layout>
+                   </item>
+                  </layout>
+                 </widget>
+                </item>
+                <item row="0" column="0" colspan="2">
+                 <widget class="QLabel" name="functionLabel">
+                  <property name="text">
+                   <string>XML Parsing Functions</string>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </widget>
+             </item>
+            </layout>
+           </item>
+          </layout>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>1274</width>
+     <height>25</height>
+    </rect>
+   </property>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
