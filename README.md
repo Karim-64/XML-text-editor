@@ -26,13 +26,13 @@ A comprehensive Python-based tool for XML processing and social network analysis
 
 ### Required Dependencies
 ```bash
-pip install networkx matplotlib PySide6
+pip install networkx matplotlib pyside6
 ```
 
 ### Setup and Running
 1. Clone the repository:
 ```bash
-git clone https://github.com/yourusername/xml-editor.git
+git clone https://github.com/Karim-64/XML-text-editor
 cd xml-editor
 ```
 
@@ -162,4 +162,5 @@ Social network data is represented using an adjacency matrix and NetworkX for gr
 
 ### Compression Algorithm
 The compression feature uses lookup tables for tag names, text content, and whitespace patterns, significantly reducing file size while maintaining data integrity.
+
 
