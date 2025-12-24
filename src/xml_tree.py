@@ -18,18 +18,21 @@ class XNode:
         self.tag = tag       
         self.text = text.strip() 
         self.children = []    
-        self.parent = None 
+        self.parent = None
+
 
     def add_child(self, child):
         child.parent = self
         self.children.append(child)
+
+
 
 class XTree:
     """
     Class that handles all operations on XML files as a custom Tree structure
     """
     def __init__(self,filePath: str):
-            self.root = self.__parse(filePath)
+        self.root : XNode | None = self.__parse(filePath)
 
     def __parse(self, filePath : str) -> XNode | None:
         """Parses XML file into an XTree
@@ -39,7 +42,7 @@ class XTree:
         Returns:
             XTree Root(XNode) : The root node of A custom Tree structure that represents XML File using XNodes.
         """
-        with open(filePath, 'r') as file:
+        with open(filePath, 'r', encoding="utf-8") as file:
             xml_string = file.read()
         xml_string = xml_string.strip()
         i = 0
@@ -116,7 +119,7 @@ class XTree:
             filePathWrite(str): relative file path to write .xml file
             formattedString(str): prettified xml string from editor.format() function
         """
-        with open(filePathWrite, 'w') as f:
+        with open(filePathWrite, 'w', encoding="utf-8") as f:
             f.write(formattedString)
         return
     

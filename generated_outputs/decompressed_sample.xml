@@ -5,7 +5,7 @@
         <posts>
             <post>
                 <body>
-                    Lorem ipsum dolor sit amet, hello consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
                 </body>
                 <topics>
                     <topic>
@@ -63,7 +63,7 @@
         <posts>
             <post>
                 <body>
-                    Lorem ipsum dolor sit amet, consectetur hello adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
                 </body>
                 <topics>
                     <topic>
@@ -74,7 +74,7 @@
         </posts>
         <followers>
             <follower>
-                <id>2</id>
+                <id>1</id>
             </follower>
         </followers>
     </user>
