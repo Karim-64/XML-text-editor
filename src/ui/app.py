@@ -70,7 +70,8 @@ class AppWindow(QMainWindow):
                 self.current_file_path = file_path
                 self.editor = XMLEditor(file_path)
             
-                self.ui.stackedWidget.setCurrentIndex(1)  # go to page
+                self.ui.stackedWidget.setCurrentIndex(1) 
+                self.ui.inputText.setPlainText(self.current_xml_content)
                 self.ui.textEdit_2.setPlainText("XML imported successfully from file!\n\nReady to use processing functions.")
                 QMessageBox.information(self, "Success", "XML imported successfully!\n\nYou can now use the processing functions.")
                 

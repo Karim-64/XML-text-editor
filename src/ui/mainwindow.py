@@ -25,7 +25,7 @@ class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
-        MainWindow.resize(1274, 816)
+        MainWindow.resize(1367, 816)
         MainWindow.setStyleSheet(u"QMainWindow#MainWindow {\n"
 "    background: qlineargradient(\n"
 "        x1:0, y1:0, x2:1, y2:1,\n"
@@ -487,13 +487,15 @@ class Ui_MainWindow(object):
 "QLabel#sectionLabel1,\n"
 "QLabel#sectionLabel2,\n"
 "QLabel#sectionLabel3,\n"
+"QLabel#InputLabel,\n"
+"QLabel#OutputLabel,\n"
 "QLabel#sectionLabel4 {\n"
 "    font-size: 18px;\n"
 "    font-weight: 600;\n"
 "    color: #A0AEC0;\n"
 "    padding: 0px 0 5px 0;\n"
 "    border-bottom: 1px solid rgba(79,139,255,0.2);\n"
-"    margin: 0px 0 10px 0;\n"
+"    margin: 0px 0 0px 0;\n"
 "}\n"
 "\n"
 "/* =====================================================\n"
@@ -505,9 +507,9 @@ class Ui_MainWindow(object):
 "QPushButton#XMLtoJSON_2,\n"
 "QPushButton#Compression_2,\n"
 "QPushButton#Decompresssion_2 {\n"
-"    background: rgba(255,255,255,0.08);\n"
-"    h"
-                        "eight: 45px;\n"
+"   "
+                        " background: rgba(255,255,255,0.08);\n"
+"    height: 45px;\n"
 "    min-width: 160px;\n"
 "    padding: 0 20px;\n"
 "    font-size: 14px;\n"
@@ -538,9 +540,9 @@ class Ui_MainWindow(object):
 "QPushButton#XMLconsistency_2:pressed,\n"
 "QPushButton#Minifying_2:pressed,\n"
 "QPushButton#Prettifying_2:pressed,\n"
-"QPushButton#XMLtoJSON_2:pressed,\n"
-"QPushButton#Comp"
-                        "ression_2:pressed,\n"
+"QPushBu"
+                        "tton#XMLtoJSON_2:pressed,\n"
+"QPushButton#Compression_2:pressed,\n"
 "QPushButton#Decompresssion_2:pressed {\n"
 "    transform: translateY(-1px);\n"
 "    box-shadow: 0 4px 15px rgba(139,92,246,0.3);\n"
@@ -568,10 +570,10 @@ class Ui_MainWindow(object):
 "QPushButton#mostActiveButton:hover,\n"
 "QPushButton#mostInfluencerButton:hover,\n"
 "QPushButton#user1suggestButton:hover {\n"
-"    background: qlineargradient(\n"
+"    background: qlineargradient("
+                        "\n"
 "        x1:0, y1:0, x2:1, y2:0,\n"
-"     "
-                        "   stop:0 #8B5CF6,\n"
+"        stop:0 #8B5CF6,\n"
 "        stop:1 #3B82F6\n"
 "    );\n"
 "    border: 1.5px solid rgba(255,255,255,0.3);\n"
@@ -603,10 +605,10 @@ class Ui_MainWindow(object):
 "    font-size: 15px;\n"
 "    font-weight: 700;\n"
 "    color: white;\n"
-"    border-radius: 22px;\n"
+"    border-radius: 2"
+                        "2px;\n"
 "    border: none;\n"
-"    box-shadow:"
-                        " 0 8px 30px rgba(139,92,246,0.4);\n"
+"    box-shadow: 0 8px 30px rgba(139,92,246,0.4);\n"
 "    transition: all 0.3s cubic-bezier(0.4,0,0.2,1);\n"
 "}\n"
 "\n"
@@ -637,11 +639,11 @@ class Ui_MainWindow(object):
 "/* =====================================================\n"
 "   RESULTS TEXT AREA\n"
 "   ===================================================== */\n"
-"QTextEdit#textEdit_2 {\n"
-"    padding: 20px;\n"
+"QTextEdit#textEdit_2 ,QTextEdit#inputText{\n"
+" "
+                        "   padding: 20px;\n"
 "    font-size: 15px;\n"
-"    font-family: \""
-                        "Consolas\", \"Monaco\", monospace;\n"
+"    font-family: \"Consolas\", \"Monaco\", monospace;\n"
 "    color: #E0E7FF;\n"
 "    background: rgba(0,0,0,0.3);\n"
 "    border-radius: 20px;\n"
@@ -651,7 +653,9 @@ class Ui_MainWindow(object):
 "    transition: all 0.3s ease;\n"
 "}\n"
 "\n"
-"QTextEdit#textEdit_2:focus {\n"
+"QTextEdit#textEdit_2:focus,\n"
+"QTextEdit#inputText:focus\n"
+" {\n"
 "    border: 2px solid rgba(139,92,246,0.6);\n"
 "    box-shadow: inset 0 2px 15px rgba(0,0,0,0.4),\n"
 "                0 0 20px rgba(139,92,246,0.2);\n"
@@ -666,12 +670,12 @@ class Ui_MainWindow(object):
 "        stop:0 rgba(255,255,255,0.05),\n"
 "        stop:1 rgba(255,255,255,0.03)\n"
 "    );\n"
-"    border: 1.5px solid rgba(139,92,246,0.4);\n"
+"    border: 1.5px solid rgba(139,"
+                        "92,246,0.4);\n"
 "    border-radius: 22px;\n"
 "    margin-top: 15px;\n"
 "    padding-top: 20px;\n"
-"   "
-                        " color: #CBD5E0;\n"
+"    color: #CBD5E0;\n"
 "    font-size: 16px;\n"
 "    font-weight: 700;\n"
 "    backdrop-filter: blur(10px);\n"
@@ -709,11 +713,11 @@ class Ui_MainWindow(object):
 "    height: 40px;\n"
 "    padding: 0 18px;\n"
 "    font-size: 14px;\n"
-"    color: #E0E7FF;\n"
+"    co"
+                        "lor: #E0E7FF;\n"
 "    background: rgba(255,255,255,0.07);\n"
 "    border-radius: 20px;\n"
-"    border:"
-                        " 1.5px solid rgba(139,92,246,0.3);\n"
+"    border: 1.5px solid rgba(139,92,246,0.3);\n"
 "    selection-background-color: rgba(139,92,246,0.5);\n"
 "    selection-color: #FFFFFF;\n"
 "    transition: all 0.3s ease;\n"
@@ -741,12 +745,12 @@ class Ui_MainWindow(object):
 "QPushButton#searchButton {\n"
 "    height: 40px;\n"
 "    min-width: 100px;\n"
-"    padding: 0 25px;\n"
+"    padding: "
+                        "0 25px;\n"
 "    font-size: 14px;\n"
 "    font-weight: 700;\n"
 "    color: #FFFFFF;\n"
-"    border-radi"
-                        "us: 20px;\n"
+"    border-radius: 20px;\n"
 "    border: none;\n"
 "    background: qlineargradient(\n"
 "        x1:0, y1:0, x2:1, y2:0,\n"
@@ -774,11 +778,11 @@ class Ui_MainWindow(object):
 "    transform: translateY(0);\n"
 "    background: qlineargradient(\n"
 "        x1:0, y1:0, x2:1, y2:0,\n"
-"        stop:0 rgba(124,58,237,0.9),\n"
+"        stop:0 rgba(124,58,"
+                        "237,0.9),\n"
 "        stop:1 rgba(109,40,217,0.9)\n"
 "    );\n"
-"    box-shadow: 0 4px 15px rgba(139,9"
-                        "2,246,0.4);\n"
+"    box-shadow: 0 4px 15px rgba(139,92,246,0.4);\n"
 "}\n"
 "\n"
 "QGridLayout {\n"
@@ -811,16 +815,16 @@ class Ui_MainWindow(object):
 "    font-size: 13px;\n"
 "}\n"
 "\n"
-"QTextEdit#textEdit_2::placeholder {\n"
+"QTextEdit#textEdit_2::placeholder,QTextEdit#inputText:placeholder {\n"
 "    color: rgba(160,174,192,0.5);\n"
 "    font-style: italic;\n"
 "    font-size: 14px;\n"
 "}\n"
 "\n"
-"/* =====================================================\n"
+"/* ==================="
+                        "==================================\n"
 "   SCROLL BARS (Optional Enhancement)\n"
-"   =================================================="
-                        "=== */\n"
+"   ===================================================== */\n"
 "QScrollBar:vertical {\n"
 "    background: rgba(255,255,255,0.05);\n"
 "    width: 12px;\n"
@@ -859,11 +863,11 @@ class Ui_MainWindow(object):
 "QScrollBar::handle:horizontal:hover {\n"
 "    background: rgba(139,92,246,0.7);\n"
 "}\n"
-"give me the name of every thing so i can edit it in qt\n"
+"give m"
+                        "e the name of every thing so i can edit it in qt\n"
 "/* Main Card Layout Improvements */\n"
 "QWidget#page_4 {\n"
-"    background: qlin"
-                        "eargradient(\n"
+"    background: qlineargradient(\n"
 "        x1:0, y1:0, x2:1, y2:1,\n"
 "        stop:0 #0F0F23,\n"
 "        stop:1 #1A1A2E\n"
@@ -893,11 +897,11 @@ class Ui_MainWindow(object):
 "\n"
 "/* Group Box Container */\n"
 "QGroupBox#searchGroupBox {\n"
-"    background: qlineargradient(\n"
+"    backg"
+                        "round: qlineargradient(\n"
 "        x1:0, y1:0, x2:0, y2:1,\n"
 "        stop:0 rgba(255,255,255,0.05),\n"
-"        stop:1 rgba(255,255"
-                        ",255,0.03)\n"
+"        stop:1 rgba(255,255,255,0.03)\n"
 "    );\n"
 "    border: 1.5px solid rgba(139,92,246,0.4);\n"
 "    border-radius: 22px;\n"
@@ -935,11 +939,11 @@ class Ui_MainWindow(object):
 "    padding: 0 15px;\n"
 "    font-size: 14px;\n"
 "    color: #E0E7FF;\n"
-"    background: rgba(255,255,255,0.07);\n"
+"    back"
+                        "ground: rgba(255,255,255,0.07);\n"
 "    border-radius: 20px;\n"
 "    border: 1.5px solid rgba(139,92,246,0.3);\n"
-"    min-width: 200p"
-                        "x;\n"
+"    min-width: 200px;\n"
 "}\n"
 "\n"
 "/* Search Text Input */\n"
@@ -976,13 +980,13 @@ class Ui_MainWindow(object):
 "    height: 40px;\n"
 "    min-width: 80px;\n"
 "    padding: 0 15px;\n"
-"    font-size: 14px;\n"
+"    f"
+                        "ont-size: 14px;\n"
 "    font-weight: 700;\n"
 "    color: #FFFFFF;\n"
 "    border-radius: 20px;\n"
 "    border: none;\n"
-"    backgroun"
-                        "d: qlineargradient(\n"
+"    background: qlineargradient(\n"
 "        x1:0, y1:0, x2:1, y2:0,\n"
 "        stop:0 rgba(139,92,246,0.9),\n"
 "        stop:1 rgba(99,102,241,0.9)\n"
@@ -1013,10 +1017,10 @@ class Ui_MainWindow(object):
 "\n"
 "/* Hover & Focus States */\n"
 "QLineEdit#lineEdit:hover, QLineEdit#lineEdit:focus,\n"
-"QLineEdit#lineEdit_2:hover, QLineEdit#lineEdit_2:focus {\n"
+"QLineE"
+                        "dit#lineEdit_2:hover, QLineEdit#lineEdit_2:focus {\n"
 "    border: 2px solid rgba(139,92,246,0.6);\n"
-"    background: rgba(255,255,25"
-                        "5,0.1);\n"
+"    background: rgba(255,255,255,0.1);\n"
 "}\n"
 "QComboBox#searchModeCombo:hover, QComboBox#searchModeCombo:focus {\n"
 "    border: 2px solid rgba(139,92,246,0.6);\n"
@@ -1048,12 +1052,12 @@ class Ui_MainWindow(object):
 "    min-width: 160px;\n"
 "    padding: 0 20px;\n"
 "    font-size: 14px;\n"
-"    font-weight: 600;\n"
+""
+                        "    font-weight: 600;\n"
 "    color: #E0E7FF;\n"
 "    border-radius: 22px;\n"
 "    border: 1.5px solid rgba(139,92,246,0.5);\n"
-" "
-                        "   transition: all 0.3s cubic-bezier(0.4,0,0.2,1);\n"
+"    transition: all 0.3s cubic-bezier(0.4,0,0.2,1);\n"
 "    box-shadow: 0 4px 15px rgba(0,0,0,0.2);\n"
 "\n"
 "}\n"
@@ -1081,12 +1085,12 @@ class Ui_MainWindow(object):
 "    border-radius: 15px;\n"
 "    border-left: 4px solid #8B5CF6;\n"
 "    border-top: 1px solid rgba(139,92,246,0.3);\n"
-"    border-bottom: 1px solid rgba(139,92,246,0.3);\n"
+"    border-bottom: 1px solid rgba(139,92,246,0"
+                        ".3);\n"
 "    margin-top: 20px;\n"
 "    text-shadow: 0 1px 2px rgba(0,0,0,0.3);\n"
 "    box-shadow: \n"
-"        inset 0 1px 0 rgba"
-                        "(255,255,255,0.1),\n"
+"        inset 0 1px 0 rgba(255,255,255,0.1),\n"
 "        0 4px 15px rgba(0,0,0,0.2);\n"
 "}\n"
 "\n"
@@ -1119,13 +1123,13 @@ class Ui_MainWindow(object):
 "QSpinBox::placeholder {\n"
 "    color: rgba(203,213,224,0.6);\n"
 "    font-style: italic;\n"
-"    font-size: 14px;\n"
+"    fon"
+                        "t-size: 14px;\n"
 "    font-weight: 500;\n"
 "}\n"
 "\n"
 "/* =====================================================\n"
-"   SECTION SEP"
-                        "ARATORS (Visual organization)\n"
+"   SECTION SEPARATORS (Visual organization)\n"
 "   ===================================================== */\n"
 "\n"
 "/* Optional: Add visual separators between sections */\n"
@@ -1153,10 +1157,10 @@ class Ui_MainWindow(object):
 "    transition: all 0.3s cubic-bezier(0.4,0,0.2,1);\n"
 "    box-shadow: 0 4px 15px rgba(0,0,0,0.2);\n"
 "}\n"
-"/* =====================================================\n"
+"/* ========================================"
+                        "=============\n"
 "   SPINBOX \u2013 SMALLER ARROWS (SIDE, MINIMAL)\n"
-"   ===================================================== */"
-                        "\n"
+"   ===================================================== */\n"
 "/* =====================================================\n"
 "   SPINBOX \u2013 CLEAR, VISIBLE ARROWS (COMPACT)\n"
 "   ===================================================== */\n"
@@ -1190,11 +1194,11 @@ class Ui_MainWindow(object):
 "\n"
 "\n"
 "\n"
-"/* Arrow hover glow */\n"
+"/* Arrow hover"
+                        " glow */\n"
 "QSpinBox::up-button:hover QSpinBox::up-arrow,\n"
 "QSpinBox::down-button:hover QSpinBox::down-arrow {\n"
-"    border-b"
-                        "ottom-color: #FFFFFF;\n"
+"    border-bottom-color: #FFFFFF;\n"
 "    border-top-color: #FFFFFF;\n"
 "}\n"
 "\n"
@@ -1223,11 +1227,11 @@ class Ui_MainWindow(object):
 "    margin: 2px 0;\n"
 "}\n"
 "\n"
-"QComboBox#searchModeCombo QAbstractItemView::item:hover {\n"
+"QComboBo"
+                        "x#searchModeCombo QAbstractItemView::item:hover {\n"
 "    background: rgba(139, 92, 246, 0.3);\n"
 "    color: white;\n"
-"    font-"
-                        "weight: 600;\n"
+"    font-weight: 600;\n"
 "}\n"
 "\n"
 "QComboBox#searchModeCombo QAbstractItemView::item:selected {\n"
@@ -1236,8 +1240,6 @@ class Ui_MainWindow(object):
 "    font-weight: 600;\n"
 "    border-left: 3px solid #FFFFFF;\n"
 "}\n"
-"\n"
-"\n"
 "")
         self.gridLayout_2 = QGridLayout(self.page_4)
         self.gridLayout_2.setObjectName(u"gridLayout_2")
@@ -1255,105 +1257,10 @@ class Ui_MainWindow(object):
         self.cardFrame_3.setFrameShape(QFrame.Shape.NoFrame)
         self.gridLayout_4 = QGridLayout(self.cardFrame_3)
         self.gridLayout_4.setObjectName(u"gridLayout_4")
-        self.widget_2 = QWidget(self.cardFrame_3)
-        self.widget_2.setObjectName(u"widget_2")
-        self.verticalLayout_6 = QVBoxLayout(self.widget_2)
-        self.verticalLayout_6.setObjectName(u"verticalLayout_6")
-        self.textEdit_2 = QTextEdit(self.widget_2)
-        self.textEdit_2.setObjectName(u"textEdit_2")
-        self.textEdit_2.setStyleSheet(u"QTextEdit {\n"
-"    padding: 18px;\n"
-"    font-size: 15px;\n"
-"    color: #E0E7FF;\n"
-"    background: rgba(255,255,255,0.06);\n"
-"    border-radius: 18px;\n"
-"    border: 2px solid rgba(79,139,255,0.45);\n"
-"}\n"
-"\n"
-"QTextEditt:hover {\n"
-"    border: 2px solid #4F8BFF;\n"
-"}\n"
-"\n"
-"QTextEdit:focus {\n"
-"    border: 2px solid #2563EB;\n"
-"}")
-        self.textEdit_2.setReadOnly(True)
-        self.textEdit_2.setAcceptRichText(False)
+        self.functionLabel = QLabel(self.cardFrame_3)
+        self.functionLabel.setObjectName(u"functionLabel")
 
-        self.verticalLayout_6.addWidget(self.textEdit_2)
-
-        self.searchGroupBox = QGroupBox(self.widget_2)
-        self.searchGroupBox.setObjectName(u"searchGroupBox")
-        self.verticalLayout_3 = QVBoxLayout(self.searchGroupBox)
-        self.verticalLayout_3.setObjectName(u"verticalLayout_3")
-        self.horizontalLayout_6 = QHBoxLayout()
-        self.horizontalLayout_6.setObjectName(u"horizontalLayout_6")
-        self.groupBoxVerticalLayout = QVBoxLayout()
-        self.groupBoxVerticalLayout.setObjectName(u"groupBoxVerticalLayout")
-        self.mutualHorizontalLayout = QWidget(self.searchGroupBox)
-        self.mutualHorizontalLayout.setObjectName(u"mutualHorizontalLayout")
-        self.horizontalLayout_11 = QHBoxLayout(self.mutualHorizontalLayout)
-        self.horizontalLayout_11.setObjectName(u"horizontalLayout_11")
-        self.horizontalLayout_11.setContentsMargins(-1, 10, 10, 10)
-        self.mutualLabel = QLabel(self.mutualHorizontalLayout)
-        self.mutualLabel.setObjectName(u"mutualLabel")
-
-        self.horizontalLayout_11.addWidget(self.mutualLabel)
-
-        self.lineEdit = QLineEdit(self.mutualHorizontalLayout)
-        self.lineEdit.setObjectName(u"lineEdit")
-        font1 = QFont()
-        self.lineEdit.setFont(font1)
-
-        self.horizontalLayout_11.addWidget(self.lineEdit)
-
-        self.mutualButton = QPushButton(self.mutualHorizontalLayout)
-        self.mutualButton.setObjectName(u"mutualButton")
-
-        self.horizontalLayout_11.addWidget(self.mutualButton)
-
-
-        self.groupBoxVerticalLayout.addWidget(self.mutualHorizontalLayout)
-
-        self.searchHorizontalLayout = QHBoxLayout()
-        self.searchHorizontalLayout.setObjectName(u"searchHorizontalLayout")
-        self.searchLabel = QLabel(self.searchGroupBox)
-        self.searchLabel.setObjectName(u"searchLabel")
-
-        self.searchHorizontalLayout.addWidget(self.searchLabel)
-
-        self.searchModeCombo = QComboBox(self.searchGroupBox)
-        self.searchModeCombo.addItem("")
-        self.searchModeCombo.addItem("")
-        self.searchModeCombo.setObjectName(u"searchModeCombo")
-        self.searchModeCombo.setAcceptDrops(True)
-
-        self.searchHorizontalLayout.addWidget(self.searchModeCombo)
-
-        self.lineEdit_2 = QLineEdit(self.searchGroupBox)
-        self.lineEdit_2.setObjectName(u"lineEdit_2")
-
-        self.searchHorizontalLayout.addWidget(self.lineEdit_2)
-
-        self.searchButton = QPushButton(self.searchGroupBox)
-        self.searchButton.setObjectName(u"searchButton")
-
-        self.searchHorizontalLayout.addWidget(self.searchButton)
-
-
-        self.groupBoxVerticalLayout.addLayout(self.searchHorizontalLayout)
-
-
-        self.horizontalLayout_6.addLayout(self.groupBoxVerticalLayout)
-
-
-        self.verticalLayout_3.addLayout(self.horizontalLayout_6)
-
-
-        self.verticalLayout_6.addWidget(self.searchGroupBox)
-
-
-        self.gridLayout_4.addWidget(self.widget_2, 1, 1, 1, 1)
+        self.gridLayout_4.addWidget(self.functionLabel, 0, 0, 1, 2)
 
         self.widget = QWidget(self.cardFrame_3)
         self.widget.setObjectName(u"widget")
@@ -1457,10 +1364,162 @@ class Ui_MainWindow(object):
 
         self.gridLayout_4.addWidget(self.widget, 1, 0, 1, 1)
 
-        self.functionLabel = QLabel(self.cardFrame_3)
-        self.functionLabel.setObjectName(u"functionLabel")
+        self.widget_2 = QWidget(self.cardFrame_3)
+        self.widget_2.setObjectName(u"widget_2")
+        self.gridLayout_9 = QGridLayout(self.widget_2)
+        self.gridLayout_9.setObjectName(u"gridLayout_9")
+        self.horizontalLayout_3 = QHBoxLayout()
+        self.horizontalLayout_3.setObjectName(u"horizontalLayout_3")
+        self.verticalLayout_8 = QVBoxLayout()
+        self.verticalLayout_8.setObjectName(u"verticalLayout_8")
+        self.verticalLayout_8.setContentsMargins(-1, -1, 5, -1)
+        self.OutputLabel = QLabel(self.widget_2)
+        self.OutputLabel.setObjectName(u"OutputLabel")
 
-        self.gridLayout_4.addWidget(self.functionLabel, 0, 0, 1, 2)
+        self.verticalLayout_8.addWidget(self.OutputLabel)
+
+        self.textEdit_2 = QTextEdit(self.widget_2)
+        self.textEdit_2.setObjectName(u"textEdit_2")
+        self.textEdit_2.setStyleSheet(u"QTextEdit {\n"
+"    padding: 18px;\n"
+"    font-size: 15px;\n"
+"    color: #E0E7FF;\n"
+"    background: rgba(255,255,255,0.06);\n"
+"    border-radius: 12px;\n"
+"    border: 2px solid rgba(79,139,255,0.45);\n"
+"}\n"
+"\n"
+"QTextEditt:hover {\n"
+"    border: 2px solid #4F8BFF;\n"
+"}\n"
+"\n"
+"QTextEdit:focus {\n"
+"    border: 2px solid #2563EB;\n"
+"}")
+        self.textEdit_2.setReadOnly(True)
+        self.textEdit_2.setAcceptRichText(False)
+
+        self.verticalLayout_8.addWidget(self.textEdit_2)
+
+
+        self.horizontalLayout_3.addLayout(self.verticalLayout_8)
+
+
+        self.gridLayout_9.addLayout(self.horizontalLayout_3, 0, 0, 1, 1)
+
+        self.verticalLayout_9 = QVBoxLayout()
+        self.verticalLayout_9.setObjectName(u"verticalLayout_9")
+        self.verticalLayout_9.setContentsMargins(5, -1, -1, -1)
+        self.InputLabel = QLabel(self.widget_2)
+        self.InputLabel.setObjectName(u"InputLabel")
+
+        self.verticalLayout_9.addWidget(self.InputLabel)
+
+        self.inputText = QTextEdit(self.widget_2)
+        self.inputText.setObjectName(u"inputText")
+        self.inputText.setStyleSheet(u"QTextEdit {\n"
+"    padding: 18px;\n"
+"    font-size: 15px;\n"
+"    color: #E0E7FF;\n"
+"    background: rgba(255,255,255,0.06);\n"
+"    border-radius: 12px;\n"
+"    border: 2px solid rgba(79,139,255,0.45);\n"
+"}\n"
+"\n"
+"QTextEditt:hover {\n"
+"    border: 2px solid #4F8BFF;\n"
+"}\n"
+"\n"
+"QTextEdit:focus {\n"
+"    border: 2px solid #2563EB;\n"
+"}\n"
+"\n"
+"QTextEdit#textEdit_2::placeholder {\n"
+"    color: rgba(180, 190, 220, 0.55);\n"
+"    font-style: italic;\n"
+"    font-size: 14px;\n"
+"}\n"
+"\n"
+"")
+        self.inputText.setReadOnly(True)
+
+        self.verticalLayout_9.addWidget(self.inputText)
+
+
+        self.gridLayout_9.addLayout(self.verticalLayout_9, 0, 1, 1, 1)
+
+        self.searchGroupBox = QGroupBox(self.widget_2)
+        self.searchGroupBox.setObjectName(u"searchGroupBox")
+        self.verticalLayout_3 = QVBoxLayout(self.searchGroupBox)
+        self.verticalLayout_3.setObjectName(u"verticalLayout_3")
+        self.horizontalLayout_6 = QHBoxLayout()
+        self.horizontalLayout_6.setObjectName(u"horizontalLayout_6")
+        self.groupBoxVerticalLayout = QVBoxLayout()
+        self.groupBoxVerticalLayout.setObjectName(u"groupBoxVerticalLayout")
+        self.mutualHorizontalLayout = QWidget(self.searchGroupBox)
+        self.mutualHorizontalLayout.setObjectName(u"mutualHorizontalLayout")
+        self.horizontalLayout_11 = QHBoxLayout(self.mutualHorizontalLayout)
+        self.horizontalLayout_11.setObjectName(u"horizontalLayout_11")
+        self.horizontalLayout_11.setContentsMargins(-1, 10, 10, 10)
+        self.mutualLabel = QLabel(self.mutualHorizontalLayout)
+        self.mutualLabel.setObjectName(u"mutualLabel")
+
+        self.horizontalLayout_11.addWidget(self.mutualLabel)
+
+        self.lineEdit = QLineEdit(self.mutualHorizontalLayout)
+        self.lineEdit.setObjectName(u"lineEdit")
+        font1 = QFont()
+        self.lineEdit.setFont(font1)
+
+        self.horizontalLayout_11.addWidget(self.lineEdit)
+
+        self.mutualButton = QPushButton(self.mutualHorizontalLayout)
+        self.mutualButton.setObjectName(u"mutualButton")
+
+        self.horizontalLayout_11.addWidget(self.mutualButton)
+
+
+        self.groupBoxVerticalLayout.addWidget(self.mutualHorizontalLayout)
+
+        self.searchHorizontalLayout = QHBoxLayout()
+        self.searchHorizontalLayout.setObjectName(u"searchHorizontalLayout")
+        self.searchLabel = QLabel(self.searchGroupBox)
+        self.searchLabel.setObjectName(u"searchLabel")
+
+        self.searchHorizontalLayout.addWidget(self.searchLabel)
+
+        self.searchModeCombo = QComboBox(self.searchGroupBox)
+        self.searchModeCombo.addItem("")
+        self.searchModeCombo.addItem("")
+        self.searchModeCombo.setObjectName(u"searchModeCombo")
+        self.searchModeCombo.setAcceptDrops(True)
+
+        self.searchHorizontalLayout.addWidget(self.searchModeCombo)
+
+        self.lineEdit_2 = QLineEdit(self.searchGroupBox)
+        self.lineEdit_2.setObjectName(u"lineEdit_2")
+
+        self.searchHorizontalLayout.addWidget(self.lineEdit_2)
+
+        self.searchButton = QPushButton(self.searchGroupBox)
+        self.searchButton.setObjectName(u"searchButton")
+
+        self.searchHorizontalLayout.addWidget(self.searchButton)
+
+
+        self.groupBoxVerticalLayout.addLayout(self.searchHorizontalLayout)
+
+
+        self.horizontalLayout_6.addLayout(self.groupBoxVerticalLayout)
+
+
+        self.verticalLayout_3.addLayout(self.horizontalLayout_6)
+
+
+        self.gridLayout_9.addWidget(self.searchGroupBox, 1, 0, 1, 2)
+
+
+        self.gridLayout_4.addWidget(self.widget_2, 1, 1, 1, 1)
 
 
         self.gridLayout_8.addWidget(self.cardFrame_3, 0, 0, 1, 1)
@@ -1478,7 +1537,7 @@ class Ui_MainWindow(object):
         MainWindow.setCentralWidget(self.centralWidget_2)
         self.menubar = QMenuBar(MainWindow)
         self.menubar.setObjectName(u"menubar")
-        self.menubar.setGeometry(QRect(0, 0, 1274, 25))
+        self.menubar.setGeometry(QRect(0, 0, 1367, 25))
         MainWindow.setMenuBar(self.menubar)
 
         self.retranslateUi(MainWindow)
@@ -1498,18 +1557,7 @@ class Ui_MainWindow(object):
         self.subtitleLabel.setText(QCoreApplication.translate("MainWindow", u"Upload an XML file from your computer or paste a URL", None))
         self.clearButton.setText(QCoreApplication.translate("MainWindow", u"Clear", None))
         self.importButton.setText(QCoreApplication.translate("MainWindow", u"Import", None))
-        self.textEdit_2.setPlaceholderText(QCoreApplication.translate("MainWindow", u"Processing results will be displayed here\"", None))
-        self.searchGroupBox.setTitle(QCoreApplication.translate("MainWindow", u"Search and Mutuals", None))
-        self.mutualLabel.setText(QCoreApplication.translate("MainWindow", u"Mutual Followers: ", None))
-        self.lineEdit.setPlaceholderText(QCoreApplication.translate("MainWindow", u"Enter user IDs separated by commas for ex:  1, 2", None))
-        self.mutualButton.setText(QCoreApplication.translate("MainWindow", u"Find Mutuals", None))
-        self.searchLabel.setText(QCoreApplication.translate("MainWindow", u"Search: ", None))
-        self.searchModeCombo.setItemText(0, QCoreApplication.translate("MainWindow", u"Topic", None))
-        self.searchModeCombo.setItemText(1, QCoreApplication.translate("MainWindow", u"Word", None))
-
-        self.searchModeCombo.setPlaceholderText(QCoreApplication.translate("MainWindow", u"Search by", None))
-        self.lineEdit_2.setPlaceholderText(QCoreApplication.translate("MainWindow", u"Enter text to search", None))
-        self.searchButton.setText(QCoreApplication.translate("MainWindow", u"Search", None))
+        self.functionLabel.setText(QCoreApplication.translate("MainWindow", u"XML Parsing Functions", None))
 #if QT_CONFIG(tooltip)
         self.spinBox.setToolTip(QCoreApplication.translate("MainWindow", u"<html><head/><body><p>Enter user ID</p><p><br/></p><p><br/></p></body></html>", None))
 #endif // QT_CONFIG(tooltip)
@@ -1530,6 +1578,28 @@ class Ui_MainWindow(object):
         self.sectionLabel3.setText(QCoreApplication.translate("MainWindow", u"Suggest Users for a specific User using his ID", None))
         self.Compression_2.setText(QCoreApplication.translate("MainWindow", u"Compress", None))
         self.backButton.setText(QCoreApplication.translate("MainWindow", u"Go back to Import", None))
-        self.functionLabel.setText(QCoreApplication.translate("MainWindow", u"XML Parsing Functions", None))
+        self.OutputLabel.setText(QCoreApplication.translate("MainWindow", u"Output:", None))
+        self.textEdit_2.setPlaceholderText(QCoreApplication.translate("MainWindow", u"Processing results will be displayed here\"", None))
+        self.InputLabel.setText(QCoreApplication.translate("MainWindow", u"Input:", None))
+        self.inputText.setHtml(QCoreApplication.translate("MainWindow", u"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><meta charset=\"utf-8\" /><style type=\"text/css\">\n"
+"p, li { white-space: pre-wrap; }\n"
+"hr { height: 1px; border-width: 0; }\n"
+"li.unchecked::marker { content: \"\\2610\"; }\n"
+"li.checked::marker { content: \"\\2612\"; }\n"
+"</style></head><body style=\" font-family:'Consolas','Monaco','monospace'; font-size:15px; font-weight:400; font-style:normal;\">\n"
+"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p></body></html>", None))
+        self.inputText.setPlaceholderText(QCoreApplication.translate("MainWindow", u"Input XML", None))
+        self.searchGroupBox.setTitle(QCoreApplication.translate("MainWindow", u"Search and Mutuals", None))
+        self.mutualLabel.setText(QCoreApplication.translate("MainWindow", u"Mutual Followers: ", None))
+        self.lineEdit.setPlaceholderText(QCoreApplication.translate("MainWindow", u"Enter user IDs separated by commas for ex:  1, 2", None))
+        self.mutualButton.setText(QCoreApplication.translate("MainWindow", u"Find Mutuals", None))
+        self.searchLabel.setText(QCoreApplication.translate("MainWindow", u"Search: ", None))
+        self.searchModeCombo.setItemText(0, QCoreApplication.translate("MainWindow", u"Topic", None))
+        self.searchModeCombo.setItemText(1, QCoreApplication.translate("MainWindow", u"Word", None))
+
+        self.searchModeCombo.setPlaceholderText(QCoreApplication.translate("MainWindow", u"Search by", None))
+        self.lineEdit_2.setPlaceholderText(QCoreApplication.translate("MainWindow", u"Enter text to search", None))
+        self.searchButton.setText(QCoreApplication.translate("MainWindow", u"Search", None))
     # retranslateUi
 
