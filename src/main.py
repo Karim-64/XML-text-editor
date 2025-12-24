@@ -33,7 +33,7 @@ def main():
         prettifiedOutput = editor.format()
         editor.tree.writePrettified(args.output, prettifiedOutput)
     elif args.command == "json":
-        jsonDictionary = editor.convert(editor.tree.root)
+        jsonDictionary = editor.convert(editor.tree.root, )
         editor.tree.writeToJson(args.output,jsonDictionary)
     elif args.command == "mini":
         minified_string = editor.minify(editor.tree.root)

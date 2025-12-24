@@ -245,13 +245,8 @@ class XMLEditor:
                     f.write(item + '\n')
                     i += 1
             
-    def correct(self):
-        """Corrects errors in XML File"""
 
-    def format(self):
-        """Formats/Prettifies XML by adjusting indentations"""
-
-    def convert(self):
+    def convert(self, root : XNode | None, siblingFlag = False):
         """Converts XML file to JSON file"""
         if(not root):
             raise TypeError
