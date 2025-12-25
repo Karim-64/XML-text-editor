@@ -34,11 +34,21 @@ class XMLEditor:
 
     def verify(self, output_file : str | None = None, logFlag : bool = False) -> deque[str] | list[str]:
         """
-        Checks consistency and Correcting of XML file
-        1-  Every opening tag has a matching closing tag.
-        2-  Elements are properly nested.
-        3-  There is a single root elements
-        4-  Special characters are correctly escaped < for example
+        Performs structural verification and error recovery on an XML file.
+
+        The function parses the XML content sequentially and validates the following:
+        1- Every opening tag has a corresponding closing tag.
+        2- XML elements are properly nested.
+        3- The document contains a single root element.
+        4- Illegal '<' or '>' characters inside text nodes are detected.
+
+        Detected errors are logged with their type, line number, and description.
+        When possible, the function attempts basic error recovery by inferring
+        missing closing tags to preserve structural consistency.
+
+        Returns:
+            - A deque representing the reconstructed XML content if logFlag is False.
+            - A list of logged errors if logFlag is True.
         """
         with open(self.filePath, "r") as input_file:
             xml_content = input_file.read()
