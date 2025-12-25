@@ -333,6 +333,10 @@ class AppWindow(QMainWindow):
                     # Delay switching to next page so user can see highlights
                     QTimer.singleShot(2000, self._proceed_to_main_page_fromImport)  # 2 second delay
                     return
+                self.ui.stackedWidget.setCurrentIndex(1)
+                self.ui.inputText.setPlainText(self.current_xml_content)
+                self.ui.textEdit_2.setPlainText("XML imported successfully!\n\nReady to use processing functions.")
+                QMessageBox.information(self, "Success", "XML imported successfully!\n\nYou can now use the processing functions.")
                 #=================
                 
 
@@ -362,132 +366,148 @@ class AppWindow(QMainWindow):
     # Network Analysis Function
 
     def find_most_active_user(self):
-        if not self.editor or not hasattr(self.editor, 'graph'):
-            QMessageBox.warning(self, "Warning", "Please import XML first.")
-            return
-        
-        try:
-            user = self.editor.graph.most_active_user()
-            if user and user.id != 0:
-                result = f"Most Active User:\nID: {user.id}\nName: {user.name}\nPosts: {(user.degree)}"
-                self.ui.textEdit_2.setPlainText(result)
-            else:
-                self.ui.textEdit_2.setPlainText("No active users found.")
-        except Exception as e:
-            QMessageBox.critical(self, "Error", f"Error finding active user: {e}")
+        if self.correctFlag:
+            if not self.editor or not hasattr(self.editor, 'graph'):
+                QMessageBox.warning(self, "Warning", "Please import XML first.")
+                return
+            
+            try:
+                user = self.editor.graph.most_active_user()
+                if user and user.id != 0:
+                    result = f"Most Active User:\nID: {user.id}\nName: {user.name}\nPosts: {(user.degree)}"
+                    self.ui.textEdit_2.setPlainText(result)
+                else:
+                    self.ui.textEdit_2.setPlainText("No active users found.")
+            except Exception as e:
+                QMessageBox.critical(self, "Error", f"Error finding active user: {e}")
+        else:
+            QMessageBox.critical(self, "Error", "You must validate first.")
 
     def find_most_influencer_user(self):
-        """Find most influential user in the network"""
-        if not self.editor or not hasattr(self.editor, 'graph'):
-            QMessageBox.warning(self, "Warning", "Please import XML first.")
-            return
-        
-        try:
-            user = self.editor.graph.most_influencer_user()
-            if user and user.id != 0:
-                result = f"Most Influencer User:\nID: {user.id}\nName: {user.name}\nFollowers: {len(user.followers)}"
-                self.ui.textEdit_2.setPlainText(result)
-            else:
-                self.ui.textEdit_2.setPlainText("No influencer users found.")
-        except Exception as e:
-            QMessageBox.critical(self, "Error", f"Error finding influencer: {e}")
-
-    def suggest_users(self):
-        """Suggest users to follow based on user ID"""
-        if not self.editor or not hasattr(self.editor, 'graph'):
-            QMessageBox.warning(self, "Warning", "Please import XML first.")
-            return
-        
-        try:
-            user_id = self.ui.spinBox.value()
-            if user_id <= 0:
-                QMessageBox.warning(self, "Warning", "Please enter a valid user ID.")
+        if self.correctFlag:
+            """Find most influential user in the network"""
+            if not self.editor or not hasattr(self.editor, 'graph'):
+                QMessageBox.warning(self, "Warning", "Please import XML first.")
                 return
             
-            suggestions = self.editor.graph.follow_suggestions(user_id)
-            if suggestions:
-                result = f"Suggested Users for User ID {user_id}:\n"
-                for user in suggestions:
-                    result += f"- ID: {user.id}, Name: {user.name}\n"
-                self.ui.textEdit_2.setPlainText(result)
-            else:
-                self.ui.textEdit_2.setPlainText(f"No suggestions found for User ID {user_id}.")
-        except Exception as e:
-            QMessageBox.critical(self, "Error", f"Error suggesting users: {e}")
+            try:
+                user = self.editor.graph.most_influencer_user()
+                if user and user.id != 0:
+                    result = f"Most Influencer User:\nID: {user.id}\nName: {user.name}\nFollowers: {len(user.followers)}"
+                    self.ui.textEdit_2.setPlainText(result)
+                else:
+                    self.ui.textEdit_2.setPlainText("No influencer users found.")
+            except Exception as e:
+                QMessageBox.critical(self, "Error", f"Error finding influencer: {e}")
+        else:
+            QMessageBox.critical(self, "Error", "You must validate first.")
+    def suggest_users(self):
+        if self.correctFlag:
+            """Suggest users to follow based on user ID"""
+            if not self.editor or not hasattr(self.editor, 'graph'):
+                QMessageBox.warning(self, "Warning", "Please import XML first.")
+                return
+            
+            try:
+                user_id = self.ui.spinBox.value()
+                if user_id <= 0:
+                    QMessageBox.warning(self, "Warning", "Please enter a valid user ID.")
+                    return
+                
+                suggestions = self.editor.graph.follow_suggestions(user_id)
+                if suggestions:
+                    result = f"Suggested Users for User ID {user_id}:\n"
+                    for user in suggestions:
+                        result += f"- ID: {user.id}, Name: {user.name}\n"
+                    self.ui.textEdit_2.setPlainText(result)
+                else:
+                    self.ui.textEdit_2.setPlainText(f"No suggestions found for User ID {user_id}.")
+            except Exception as e:
+                QMessageBox.critical(self, "Error", f"Error suggesting users: {e}")
+        else: 
+            QMessageBox.critical(self, "Error", "You must validate first.")
 
     def find_mutual_followers(self):
-        """Find mutual followers between users"""
-        if not self.editor or not hasattr(self.editor, 'graph'):
-            QMessageBox.warning(self, "Warning", "Please import XML first.")
-            return
-        
-        try:
-            user_ids_text = self.ui.lineEdit.text()
-            if not user_ids_text:
-                QMessageBox.warning(self, "Warning", "Please enter user IDs (comma-separated).")
+        if self.correctFlag:
+            """Find mutual followers between users"""
+            if not self.editor or not hasattr(self.editor, 'graph'):
+                QMessageBox.warning(self, "Warning", "Please import XML first.")
                 return
             
-            user_ids = [int(id.strip()) for id in user_ids_text.split(',') if id.strip().isdigit()]
-            if len(user_ids) < 2:
-                QMessageBox.warning(self, "Warning", "Please enter at least 2 user IDs.")
-                return
-            
-            mutuals = self.editor.graph.mutual_followers(user_ids)
-            if mutuals:
-                result = f"Mutual Followers for Users {user_ids}:\n"
-                for user in mutuals:
-                    if user.id != 0:
-                        result += f"- ID: {user.id}, Name: {user.name}\n"
-                self.ui.textEdit_2.setPlainText(result)
-            else:
-                self.ui.textEdit_2.setPlainText(f"No mutual followers found for users {user_ids}.")
-        except Exception as e:
-            QMessageBox.critical(self, "Error", f"Error finding mutual followers: {e}")
-
+            try:
+                user_ids_text = self.ui.lineEdit.text()
+                if not user_ids_text:
+                    QMessageBox.warning(self, "Warning", "Please enter user IDs (comma-separated).")
+                    return
+                
+                user_ids = [int(id.strip()) for id in user_ids_text.split(',') if id.strip().isdigit()]
+                if len(user_ids) < 2:
+                    QMessageBox.warning(self, "Warning", "Please enter at least 2 user IDs.")
+                    return
+                
+                mutuals = self.editor.graph.mutual_followers(user_ids)
+                if mutuals:
+                    result = f"Mutual Followers for Users {user_ids}:\n"
+                    for user in mutuals:
+                        if user.id != 0:
+                            result += f"- ID: {user.id}, Name: {user.name}\n"
+                    self.ui.textEdit_2.setPlainText(result)
+                else:
+                    self.ui.textEdit_2.setPlainText(f"No mutual followers found for users {user_ids}.")
+            except Exception as e:
+                QMessageBox.critical(self, "Error", f"Error finding mutual followers: {e}")
+        else: 
+            QMessageBox.critical(self, "Error", "You must validate first.")
     def search_posts(self):
-        """Search posts by body or topic"""
-        if not self.editor or not hasattr(self.editor, 'graph'):
-            QMessageBox.warning(self, "Warning", "Please import XML first.")
-            return
-        
-        try:
-            search_mode = self.ui.searchModeCombo.currentText()
-            search_text = self.ui.lineEdit_2.text()
-            
-            if not search_text:
-                QMessageBox.warning(self, "Warning", "Please enter search text.")
+        if self.correctFlag:
+            """Search posts by body or topic"""
+            if not self.editor or not hasattr(self.editor, 'graph'):
+                QMessageBox.warning(self, "Warning", "Please import XML first.")
                 return
             
-            if search_mode == "Word":
-                posts = self.editor.graph.search_by_body(search_text)
-            else:  # "Topic" mode
-                posts = self.editor.graph.search_by_topic(search_text)
-            
-            if posts:
-                result = f"Search Results ({search_mode}): '{search_text}'\n\n"
-                for i, post in enumerate(posts, start=1):
-                    result += f"{i}. User ID: {post.user_id}\n"
-                    result += f"   Body: {post.body[:100]}...\n"
-                    if post.topics:
-                        result += f"   Topics: {', '.join(post.topics)}\n"
-                    result += "\n"
-                self.ui.textEdit_2.setPlainText(result)
-            else:
-                self.ui.textEdit_2.setPlainText(f"No posts found for '{search_text}' in {search_mode} mode.")
-        except Exception as e:
-            QMessageBox.critical(self, "Error", f"Search error: {e}")
+            try:
+                search_mode = self.ui.searchModeCombo.currentText()
+                search_text = self.ui.lineEdit_2.text()
+                
+                if not search_text:
+                    QMessageBox.warning(self, "Warning", "Please enter search text.")
+                    return
+                
+                if search_mode == "Word":
+                    posts = self.editor.graph.search_by_body(search_text)
+                else:  # "Topic" mode
+                    posts = self.editor.graph.search_by_topic(search_text)
+                
+                if posts:
+                    result = f"Search Results ({search_mode}): '{search_text}'\n\n"
+                    for i, post in enumerate(posts, start=1):
+                        result += f"{i}. User ID: {post.user_id}\n"
+                        result += f"   Body: {post.body[:100]}...\n"
+                        if post.topics:
+                            result += f"   Topics: {', '.join(post.topics)}\n"
+                        result += "\n"
+                    self.ui.textEdit_2.setPlainText(result)
+                else:
+                    self.ui.textEdit_2.setPlainText(f"No posts found for '{search_text}' in {search_mode} mode.")
+            except Exception as e:
+                QMessageBox.critical(self, "Error", f"Search error: {e}")
+        else: 
+            QMessageBox.critical(self, "Error", "You must validate first.")
 
     def show_graph(self):
         """Display social network graph"""
-        if not self.editor or not hasattr(self.editor, 'graph'):
-            QMessageBox.warning(self, "Warning", "Please import XML first.")
-            return
+        if  self.correctFlag:
+            if not self.editor or not hasattr(self.editor, 'graph'):
+                QMessageBox.warning(self, "Warning", "Please import XML first.")
+                return
 
-        try:
-            self.editor.graph.graph_draw(None)
-            self.ui.textEdit_2.append("\nGraph displayed in a new window.")
-        except Exception as e:
-            QMessageBox.critical(self, "Error", f"Graph error:\n{e}")
+            try:
+                self.editor.graph.graph_draw(None)
+                self.ui.textEdit_2.append("\nGraph displayed in a new window.")
+            except Exception as e:
+                QMessageBox.critical(self, "Error", f"Graph error:\n{e}")
+        else:
+            QMessageBox.critical(self, "Error", "You must validate first.") 
 
 
     def save_results(self):
