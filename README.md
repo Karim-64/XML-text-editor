@@ -69,7 +69,7 @@ xml_editor gui
 ```
 
 <img width="1361" height="697" alt="image" src="https://github.com/user-attachments/assets/5e1ccbdf-224f-4421-9348-66f44272a545" />
-<img width="1359" height="699" alt="image" src="https://github.com/user-attachments/assets/2e0d1975-1b3c-40a7-9bf2-599371f56093" />
+<img width="1912" height="1017" alt="Screenshot 2025-12-25 043629" src="https://github.com/user-attachments/assets/fbf5f728-881d-4c3e-9ce4-dda56fc3a489" />
 
 
 
@@ -180,6 +180,7 @@ Social network data is represented using an adjacency matrix and NetworkX for gr
 
 ### Compression Algorithm
 The compression feature uses lookup tables for tag names, text content, and whitespace patterns, significantly reducing file size while maintaining data integrity.
+
 
 
 
