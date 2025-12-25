@@ -319,19 +319,19 @@ class AppWindow(QMainWindow):
                 errors = self.editor.verify(logFlag=True)
                             
                 if errors:  # Highlight error lines and delay page switch
-                    error_lines = [err['line'] for err in errors]
+                    error_lines = [err['line'] for err in errors]  #type: ignore
                     self.highlight_error_lines(self.ui.xmlInput, error_lines)
                     
                     # Show error details in popup
                     error_text = ""
                     for err in errors:
-                        error_text += f"[{err['type']}] Line {err['line']}: {err['message']}\n"
+                        error_text += f"[{err['type']}] Line {err['line']}: {err['message']}\n" # type: ignore
                     error_text += f"\nTotal errors found: {len(errors)}"
                     
                     QMessageBox.warning(self, "Errors Found", error_text)
                     
                     # Delay switching to next page so user can see highlights
-                    QTimer.singleShot(2000, self._proceed_to_main_page_fromImport)  # 2 second delay
+                    QTimer.singleShot(10, self._proceed_to_main_page_fromImport)  # 2 second delay
                     return
                 self.ui.stackedWidget.setCurrentIndex(1)
                 self.ui.inputText.setPlainText(self.current_xml_content)

@@ -1,6 +1,41 @@
 import argparse
+from collections import deque
 from ui.app import run_app
 from xml_editor_core import XMLEditor
+
+
+def verify(editor, args):
+    if(args.fix):
+        xml_queue = editor.verify(args.output)
+        editor.tree.writeVerified(args.output, xml_queue)  # type: ignore
+    else:
+        xml_queue = editor.verify()
+
+
+def format(editor, args):
+    prettifiedOutput = editor.format()
+    editor.tree.writeFromString(args.output, prettifiedOutput)
+
+
+def json(editor, args):
+    jsonDictionary = editor.convert(editor.tree.root)
+    editor.tree.writeToJson(args.output, jsonDictionary)
+
+
+def mini(editor, args):
+    minified_string = editor.minify(editor.tree.root)
+    editor.tree.writeFromString(args.output, minified_string)
+
+
+def compress(editor, args):
+    compressed_xml = XMLEditor.compress(args.input)
+    editor.tree.writeFromString(args.output, compressed_xml)
+
+
+def decompress(editor, args):
+    decompressed_xml = XMLEditor.decompress(args.input)
+    editor.tree.writeFromString(args.output, decompressed_xml)
+
 
 def main():
     parser = argparse.ArgumentParser()
@@ -19,7 +54,7 @@ def main():
     args = parser.parse_args()
     
     #===================================================
-    
+    #Run GUI Mode
     if args.command == "gui":
         run_app()
         return
@@ -27,33 +62,24 @@ def main():
     # Parses input file path from CLI
     editor : XMLEditor = XMLEditor(args.input)
     #===================================================
-    
+    #Run CLI Mode
     if args.command == "verify":
-        if(args.fix):
-            xml_queue = editor.verify(args.output)
-            editor.tree.writeVerified(args.output,xml_queue)
-        else:
-            xml_queue = editor.verify()
+        verify(editor, args)
             
     elif args.command == "format":
-        prettifiedOutput = editor.format()
-        editor.tree.writeFromString(args.output, prettifiedOutput)
+        format(editor, args)
         
     elif args.command == "json":
-        jsonDictionary = editor.convert(editor.tree.root, )
-        editor.tree.writeToJson(args.output,jsonDictionary)
+        json(editor, args)
         
     elif args.command == "mini":
-        minified_string = editor.minify(editor.tree.root)
-        editor.tree.writeFromString(args.output, minified_string)
+        mini(editor, args)
         
     elif args.command == "compress":
-        compressed_xml = XMLEditor.compress(args.input)
-        editor.tree.writeFromString(args.output, compressed_xml)
+        compress(editor, args)
         
     elif args.command == "decompress":
-        decompressed_xml = XMLEditor.decompress(args.input)
-        editor.tree.writeFromString(args.output, decompressed_xml)
+        decompress(editor, args)
         
     elif args.command == "draw":
         editor.graph.graph_draw(args.output)

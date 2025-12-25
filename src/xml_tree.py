@@ -95,7 +95,7 @@ class XTree:
                 f.write('\n'.join(lines))
             return
     
-    def writeVerified(self, filePathWrite : str, xml_queue : deque)->None:
+    def writeVerified(self, filePathWrite : str, xml_queue : list)->None:
         """Creates new  XML file after correction with editor.verify
         
         Args:
